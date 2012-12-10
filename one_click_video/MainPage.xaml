@@ -11,8 +11,11 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
-
-    <!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
+    shell:SystemTray.IsVisible="False">
+    
+    <MediaElement x:Name="MyCameraMediaElement"
+                            Grid.Row="0" Grid.Column="0"
+                            IsHitTestVisible="False"
+                            Margin="0" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" />
 
 </phone:PhoneApplicationPage>
