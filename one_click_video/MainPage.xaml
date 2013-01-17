@@ -20,6 +20,7 @@
         </Grid.RowDefinitions>
     	<Rectangle x:Name="videoRect" Fill="Black" Margin="0" Grid.RowSpan="2" Stroke="Black"/>
     	<TextBlock HorizontalAlignment="Right" Height="85" Margin="0,0,60,50" Grid.RowSpan="2" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Bottom" Width="285" FontSize="64" TextAlignment="Center"/>
+    	<Button Content="Button" HorizontalAlignment="Left" Height="70" Margin="255,140,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="130" Click="Button_Click_1"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

@@ -15,15 +15,19 @@ using System.Reflection;
 using Microsoft.Phone.Info;
 using Windows.Phone.Media.Capture;
 using System.Windows.Navigation;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.Foundation;
+using Microsoft.Phone.Tasks;
 
 namespace one_click_video
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        //private Windows.Foundation.Size _max_s;
-        //private int[] _arr;
-        //private WriteableBitmap _oB;
-
+        private AudioVideoCaptureDevice _dev;
+        private VideoBrush _videoBrush;
+        private IRandomAccessStream _sst;
+        private string _path;
 
         // Konstruktor
         public MainPage()
@@ -39,6 +43,9 @@ namespace one_click_video
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            //CameraCaptureTask cameraCaptureTask = new CameraCaptureTask();
+            //cameraCaptureTask.Show();
 
             ActivateCamera();
         }
@@ -56,7 +63,6 @@ namespace one_click_video
 
         private void MainPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(this.Orientation);
             if (this.Orientation == PageOrientation.LandscapeLeft)
             {
                 _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 - _dev.SensorRotationInDegrees };
@@ -71,16 +77,13 @@ namespace one_click_video
             }
         }
 
-        private AudioVideoCaptureDevice _dev;
-        private VideoBrush _videoBrush;
-
         async void ActivateCamera()
         {
             if (_dev == null)
             {
                 if (AudioVideoCaptureDevice.AvailableSensorLocations.Contains(CameraSensorLocation.Back))
                 {
-                    _dev = await AudioVideoCaptureDevice.OpenAsync(CameraSensorLocation.Back, AudioVideoCaptureDevice.GetAvailableCaptureResolutions(CameraSensorLocation.Back).Last());
+                    _dev = await AudioVideoCaptureDevice.OpenAsync(CameraSensorLocation.Back, AudioVideoCaptureDevice.GetAvailableCaptureResolutions(CameraSensorLocation.Back).First());
 
                     _videoBrush = new VideoBrush();
 
@@ -88,66 +91,34 @@ namespace one_click_video
                     MainPage_OrientationChanged(null, null);
 
                     this.videoRect.Fill = _videoBrush;
+
+                    StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                    StorageFile storageFile = await localFolder.CreateFileAsync("CameraMovie.mp4", CreationCollisionOption.ReplaceExisting);
+                    _path = storageFile.Path;
+
+                    _sst = await storageFile.OpenAsync(FileAccessMode.ReadWrite);
+                    await _dev.StartRecordingToStreamAsync(_sst);
                 }
-                
-
-                //CameraStreamSource source = new CameraStreamSource(_dev, _dev.PreviewResolution);
-                //MyCameraMediaElement.SetSource(_source);
-                
             }
-            
-
-            //_dev.SetProperty(KnownCameraGeneralProperties.SpecifiedCaptureOrientation, 90);
-            //_dev.SetProperty(KnownCameraGeneralProperties.EncodeWithOrientation, 90);
-
-            
-
-            //IReadOnlyList<Windows.Foundation.Size>  cap_res = AudioVideoCaptureDevice.GetAvailableCaptureResolutions(CameraSensorLocation.Back);
-            //_max_s = new Windows.Foundation.Size(0, 0);
-            
-            //foreach (Windows.Foundation.Size s in cap_res)
-            //{
-            //    if (s.Height * s.Width > _max_s.Height * _max_s.Width)
-            //    {
-            //        _max_s = s;
-            //    }
-            //}
-
-            //_arr = new int[(int)(_max_s.Height * _max_s.Width)];
-            //_oB = new WriteableBitmap(int)_max_s.Width, (int)_max_s.Height);
-
-            //IAsyncOperation<AudioVideoCaptureDevice> dev_async_op = AudioVideoCaptureDevice.OpenAsync(CameraSensorLocation.Back, _max_s);
-            //dev_async_op.Completed = (IAsyncOperation<AudioVideoCaptureDevice> dev, Windows.Foundation.AsyncStatus status) =>
-            //    {
-            //        _dev = dev.GetResults();
-            //        _dev.PreviewFrameAvailable += _dev_PreviewFrameAvailable;
-            //    };
-
-            
-
-                //OpenAsync(CameraSensorLocation.Back, new Windows.Foundation.Size(10,10));
-
         }
 
-        //private void _dev_PreviewFrameAvailable(ICameraCaptureDevice sender, object args)
-        //{
-        //    sender.GetPreviewBufferArgb(_arr);
+        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	if (_dev != null)
+            {
+                _dev.StopRecordingAsync().Completed = (IAsyncAction action, Windows.Foundation.AsyncStatus status) =>
+                    {
+                        _dev.Dispose();
+                        _dev = null;
 
-        //    this.Dispatcher.BeginInvoke(() =>
-        //    {
-        //        for (int i = 0; i < _arr.Length; ++i)
-        //        {
-        //            _oB.Pixels[i] = _arr[i];
-        //        }
 
-        //        this.img.Source = _oB;
-        //    }
-        //    );
-           
-
-        //    //sender.GetPreviewBufferArgb
-        //}
-
+                        new MediaPlayerLauncher()
+                        {
+                            Media = new Uri(_path, UriKind.Relative),
+                        }.Show();
+                    };
+            }
+        }
 
         // Beispielcode zur Erstellung einer lokalisierten ApplicationBar
         //private void BuildLocalizedApplicationBar()
