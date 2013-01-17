@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
-using System.Windows.Navigation;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using Microsoft.Devices;
+using System.Reflection;
+using Microsoft.Phone.Info;
 using Windows.Phone.Media.Capture;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
-using System.Threading;
-using Microsoft.Phone;
+using System.Windows.Navigation;
 
 namespace one_click_video
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private AudioVideoCaptureDevice _dev;
         //private Windows.Foundation.Size _max_s;
         //private int[] _arr;
         //private WriteableBitmap _oB;
@@ -33,24 +33,74 @@ namespace one_click_video
             // Beispielcode zur Lokalisierung der ApplicationBar
             //BuildLocalizedApplicationBar();
 
-            Loaded += MainPage_Loaded;
+            OrientationChanged += MainPage_OrientationChanged;
         }
 
-        async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Windows.Foundation.Size resolution = new Windows.Foundation.Size(640, 480);
-            _dev = await AudioVideoCaptureDevice.OpenAsync(CameraSensorLocation.Back, resolution);
+            base.OnNavigatedTo(e);
+
+            ActivateCamera();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            if (_dev != null)
+            {
+                _dev.Dispose();
+                _dev = null;
+            }
+
+            base.OnNavigatedFrom(e);
+        }
+
+        private void MainPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(this.Orientation);
+            if (this.Orientation == PageOrientation.LandscapeLeft)
+            {
+                _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 - _dev.SensorRotationInDegrees };
+            }
+            else if (this.Orientation == PageOrientation.LandscapeRight)
+            {
+                _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 + _dev.SensorRotationInDegrees };
+            }
+            else if(this.Orientation == PageOrientation.PortraitUp)
+            {
+                _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = _dev.SensorRotationInDegrees };
+            }
+        }
+
+        private AudioVideoCaptureDevice _dev;
+        private VideoBrush _videoBrush;
+
+        async void ActivateCamera()
+        {
+            if (_dev == null)
+            {
+                if (AudioVideoCaptureDevice.AvailableSensorLocations.Contains(CameraSensorLocation.Back))
+                {
+                    _dev = await AudioVideoCaptureDevice.OpenAsync(CameraSensorLocation.Back, AudioVideoCaptureDevice.GetAvailableCaptureResolutions(CameraSensorLocation.Back).Last());
+
+                    _videoBrush = new VideoBrush();
+
+                    _videoBrush.SetSource(_dev);
+                    MainPage_OrientationChanged(null, null);
+
+                    this.videoRect.Fill = _videoBrush;
+                }
+                
+
+                //CameraStreamSource source = new CameraStreamSource(_dev, _dev.PreviewResolution);
+                //MyCameraMediaElement.SetSource(_source);
+                
+            }
+            
 
             //_dev.SetProperty(KnownCameraGeneralProperties.SpecifiedCaptureOrientation, 90);
             //_dev.SetProperty(KnownCameraGeneralProperties.EncodeWithOrientation, 90);
 
-            _dev.SetProperty(KnownCameraAudioVideoProperties.VideoTorchPower, AudioVideoCaptureDevice.GetSupportedPropertyRange(CameraSensorLocation.Back, KnownCameraAudioVideoProperties.VideoTorchPower).Min);
-            _dev.SetProperty(KnownCameraAudioVideoProperties.VideoTorchMode, VideoTorchMode.On);
-
-            Windows.Foundation.Size actualResolution = _dev.PreviewResolution;
-
-            CameraStreamSource source = new CameraStreamSource(_dev, actualResolution);
-            MyCameraMediaElement.SetSource(source);
+            
 
             //IReadOnlyList<Windows.Foundation.Size>  cap_res = AudioVideoCaptureDevice.GetAvailableCaptureResolutions(CameraSensorLocation.Back);
             //_max_s = new Windows.Foundation.Size(0, 0);

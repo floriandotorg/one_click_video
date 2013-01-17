@@ -18,6 +18,12 @@ namespace one_click_video
         /// <returns>Der Stammframe der Phone-Anwendung.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
+        public event EventHandler<LaunchingEventArgs> ApplicationLaunching = delegate { };
+        public event EventHandler<ActivatedEventArgs> ApplicationActivated = delegate { };
+        public event EventHandler<DeactivatedEventArgs> ApplicationDeactivated = delegate { };
+        public event EventHandler<ClosingEventArgs> ApplicationClosing = delegate { };
+
+
         /// <summary>
         /// Konstruktor für das Application-Objekt.
         /// </summary>
@@ -39,7 +45,7 @@ namespace one_click_video
             if (Debugger.IsAttached)
             {
                 // Zähler für die aktuelle Bildrate anzeigen.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                //Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Bereiche der Anwendung hervorheben, die mit jedem Bild neu gezeichnet werden.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
@@ -52,7 +58,7 @@ namespace one_click_video
                 // die Leerlauferkennung der Anwendung deaktiviert wird.
                 // Vorsicht: Nur im Debugmodus verwenden. Eine Anwendung mit deaktivierter Benutzerleerlauferkennung wird weiterhin ausgeführt
                 // und verbraucht auch dann Akkuenergie, wenn der Benutzer das Handy nicht verwendet.
-                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+                //PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
         }
@@ -61,24 +67,28 @@ namespace one_click_video
         // Dieser Code wird beim Reaktivieren der Anwendung nicht ausgeführt
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            ApplicationLaunching(sender, e);
         }
 
         // Code, der ausgeführt werden soll, wenn die Anwendung aktiviert wird (in den Vordergrund gebracht wird)
         // Dieser Code wird beim ersten Starten der Anwendung nicht ausgeführt
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            ApplicationActivated(sender, e);
         }
 
         // Code, der ausgeführt werden soll, wenn die Anwendung deaktiviert wird (in den Hintergrund gebracht wird)
         // Dieser Code wird beim Schließen der Anwendung nicht ausgeführt
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            ApplicationDeactivated(sender, e);
         }
 
         // Code, der beim Schließen der Anwendung ausgeführt wird (z. B. wenn der Benutzer auf "Zurück" klickt)
         // Dieser Code wird beim Deaktivieren der Anwendung nicht ausgeführt
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            ApplicationClosing(sender, e);
         }
 
         // Code, der bei einem Navigationsfehler ausgeführt wird
