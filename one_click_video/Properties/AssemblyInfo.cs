@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("one_click_video")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,7 +21,7 @@ using System.Resources;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID ist für die ID der typelib, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("1d3f624f-770e-44bb-9ea6-3e8c8a7cfb3e")]
+[assembly: Guid("63ab7b0e-7a4b-4542-b26e-0d36f8a0cd19")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //
