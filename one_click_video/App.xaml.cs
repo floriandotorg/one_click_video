@@ -41,7 +41,7 @@ namespace one_click_video
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Zähler für die aktuelle Bildrate anzeigen.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                //Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Bereiche der Anwendung hervorheben, die mit jedem Bild neu gezeichnet werden.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
@@ -54,7 +54,7 @@ namespace one_click_video
                 // application's PhoneApplicationService object to Disabled.
                 // Vorsicht: Nur im Debugmodus verwenden. Eine Anwendung mit deaktivierter Benutzerleerlauferkennung wird weiterhin ausgeführt
                 // und verbraucht auch dann Akkuenergie, wenn der Benutzer das Handy nicht verwendet.
-                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+                //PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
         }
