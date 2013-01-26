@@ -1,10 +1,20 @@
 ﻿using System;
 using System.Reflection;
-using Microsoft.Devices;
 
 namespace one_click_video
 {
-    /// <summary>
+    public class ContentReadyEventArgs : EventArgs
+    {
+        // Methods
+        public ContentReadyEventArgs(string relativePath)
+        {
+            this.RelativePath = relativePath;
+        }
+
+        // Properties
+        public string RelativePath { get; internal set; }
+    }
+
     /// Wrapper around the Microsoft.Phone.VideoCamera object in Microsoft.Phone.Media.Extended.
     /// </summary>
     public class VideoCamera
@@ -13,9 +23,12 @@ namespace one_click_video
         private PropertyInfo _videoCameraLampEnabledPropertyInfo;
         private MethodInfo _videoCameraStartRecordingMethod;
         private MethodInfo _videoCameraStopRecordingMethod;
+        private MethodInfo _videoCameraAddMediaToCameraRoll;
         private EventHandler _videoCameraInitialized;
         private EventHandler _videoCameraRecordingStarted;
-        private EventHandler<ContentReadyEventArgs> _videoCameraThumbnailSavedToDisk;
+        private object _videoCameraThumbnailSavedToDisk;
+        private EventHandler _videoCameraShutterPressed;
+        private MethodInfo _videoCameraThumbnailSavedToDiskGetRelativePath;
 
         public object InnerCameraObject
         {
@@ -47,6 +60,7 @@ namespace one_click_video
             _videoCameraLampEnabledPropertyInfo = videoCameraType.GetProperty("LampEnabled");
             _videoCameraStartRecordingMethod = videoCameraType.GetMethod("StartRecording");
             _videoCameraStopRecordingMethod = videoCameraType.GetMethod("StopRecording");
+            _videoCameraAddMediaToCameraRoll = videoCameraType.GetMethod("AddMediaToCameraRoll");
 
             MethodInfo addInitializedEventMethodInfo;
 
@@ -59,9 +73,13 @@ namespace one_click_video
             addInitializedEventMethodInfo = videoCameraType.GetMethod("add_Initialized");
             addInitializedEventMethodInfo.Invoke(_videoCamera, new object[] { _videoCameraInitialized });
 
-            //_videoCameraThumbnailSavedToDisk = new EventHandler<ContentReadyEventArgs>(VideoCamera_ThumbnailSavedToDisk);
-            //addInitializedEventMethodInfo = videoCameraType.GetMethod("add_ThumbnailSavedToDisk");
-            //addInitializedEventMethodInfo.Invoke(_videoCamera, new object[] { _videoCameraThumbnailSavedToDisk });
+            EventInfo eventClick = videoCameraType.GetEvent("ThumbnailSavedToDisk");
+            eventClick.AddEventHandler(_videoCamera, Delegate.CreateDelegate(eventClick.EventHandlerType, this, "VideoCamera_ThumbnailSavedToDisk"));
+            _videoCameraThumbnailSavedToDiskGetRelativePath = mediaExtendedAssembly.GetType("Microsoft.Phone.ContentReadyEventArgs").GetProperty("RelativePath").GetGetMethod();
+
+            _videoCameraShutterPressed = new EventHandler(VideoCamera_ShutterPressed);
+            addInitializedEventMethodInfo = videoCameraType.GetMethod("add_ShutterPressed");
+            addInitializedEventMethodInfo.Invoke(_videoCamera, new object[] { _videoCameraShutterPressed });
         }
 
         /// <summary>
@@ -95,11 +113,22 @@ namespace one_click_video
 
         public event EventHandler<ContentReadyEventArgs> ThumbnailSavedToDisk;
 
-        private void VideoCamera_ThumbnailSavedToDisk(object sender, ContentReadyEventArgs eventArgs)
+        public void VideoCamera_ThumbnailSavedToDisk(object sender, object eventArgs)
         {
             if (ThumbnailSavedToDisk != null)
             {
-                ThumbnailSavedToDisk.Invoke(this, eventArgs);
+                string relative_path = _videoCameraThumbnailSavedToDiskGetRelativePath.Invoke(eventArgs, new object[0]) as string;
+                ThumbnailSavedToDisk.Invoke(this, new ContentReadyEventArgs(relative_path));
+            }
+        }
+
+        public event EventHandler ShutterPressed;
+
+        private void VideoCamera_ShutterPressed(object sender, object eventArgs)
+        {
+            if (ShutterPressed != null)
+            {
+                ShutterPressed.Invoke(this, new EventArgs());
             }
         }
 
@@ -117,5 +146,11 @@ namespace one_click_video
             // Invoke the start recording method on the video camera object.
             _videoCameraStopRecordingMethod.Invoke(_videoCamera, new object[0]);
         }
+
+        public void AddMediaToCameraRoll(string relativeMediaPath, string relativeThumbnailPath)
+        {
+            _videoCameraAddMediaToCameraRoll.Invoke(_videoCamera, new object[] {relativeMediaPath, relativeThumbnailPath} );
+        }
+
     }
 }

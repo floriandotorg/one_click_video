@@ -19,6 +19,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
     	<Rectangle x:Name="videoRect" Fill="Black" Margin="0,48,0,80" Grid.RowSpan="2" Stroke="Black" RenderTransformOrigin="0.5,0.5" Height="640" Width="480"/>
+    	<Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Right" Height="75" Margin="0" Grid.RowSpan="2" VerticalAlignment="Bottom" Width="155" Click="Button_Click_1" IsEnabled="False"/>
     </Grid>
  
 </phone:PhoneApplicationPage>
