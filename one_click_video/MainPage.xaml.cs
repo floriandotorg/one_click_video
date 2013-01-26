@@ -19,6 +19,8 @@ namespace one_click_video
         private VideoCamera _videoCamera;
         private VideoCameraVisualizer _videoCameraVisualizer;
         private VideoBrush _videoBrush;
+        private System.Windows.Threading.DispatcherTimer _dt;
+        private DateTime _recStartTime;
 
         // Konstruktor
         public MainPage()
@@ -29,7 +31,6 @@ namespace one_click_video
 
             // Event is fired when the video camera object has been initialized.
             _videoCamera.Initialized += VideoCamera_Initialized;
-            _videoCamera.ShutterPressed += Button_Click_1;
 
             // Add the photo camera to the video source
             _videoCameraVisualizer = new VideoCameraVisualizer();
@@ -54,16 +55,25 @@ namespace one_click_video
             Dispatcher.BeginInvoke(new Action( () =>
                 {
                     _videoCamera.ShutterPressed += ShutterPressed;
-                    this.stopButton.IsEnabled = true; 
+
+                    this.RecIconStarting.Visibility = Visibility.Collapsed;
+
+                    _recStartTime = DateTime.Now;
+                    dt_Tick(null, null);
+                    _dt = new System.Windows.Threading.DispatcherTimer();
+                    _dt.Interval = new TimeSpan(0, 0, 0, 1, 0);
+                    _dt.Tick += dt_Tick;
+                    _dt.Start();
                 }));
         }
 
-        private void ShutterPressed(object sender, object e)
+        void dt_Tick(object sender, EventArgs e)
         {
-            _videoCamera.StopRecording();
+            TimeSpan duration = DateTime.Now - _recStartTime;
+            this.RecTimer.Text = duration.ToString(@"mm\:ss"); ;
         }
 
-        private void Button_Click_1(object sender, object e)
+        private void ShutterPressed(object sender, object e)
         {
             _videoCamera.StopRecording();
         }
