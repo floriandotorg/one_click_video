@@ -10,7 +10,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait" shell:SystemTray.IsVisible="True">
+    SupportedOrientations="Landscape" Orientation="Landscape" shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-    	<Rectangle x:Name="videoRect" Fill="Black" Margin="0,48,0,80" Grid.RowSpan="2" Stroke="Black" RenderTransformOrigin="0.5,0.5" Height="640" Width="480"/>
+    	<Rectangle x:Name="videoRect" Fill="Black" Margin="0,0,80,0" Grid.RowSpan="2" Stroke="Black" RenderTransformOrigin="0.5,0.5" Height="480" Width="640" HorizontalAlignment="Right" VerticalAlignment="Top"/>
     	<Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Right" Height="75" Margin="0" Grid.RowSpan="2" VerticalAlignment="Bottom" Width="155" Click="Button_Click_1" IsEnabled="False"/>
     </Grid>
  
