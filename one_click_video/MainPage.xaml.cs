@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -70,7 +71,7 @@ namespace one_click_video
         void dt_Tick(object sender, EventArgs e)
         {
             TimeSpan duration = DateTime.Now - _recStartTime;
-            this.RecTimer.Text = duration.ToString(@"mm\:ss"); ;
+            this.RecTimer.Text = duration.ToString(@"mm\:ss");
         }
 
         private void ShutterPressed(object sender, object e)
@@ -85,6 +86,8 @@ namespace one_click_video
                 string path = System.IO.Path.GetFileNameWithoutExtension(e.RelativePath);
                 path = path.Remove(path.Length - 3, 3) + ".mp4";
                 _videoCamera.AddMediaToCameraRoll(path, e.RelativePath);
+
+                NavigationService.Navigate(new Uri("/PlayPage.xaml?video=" + path, UriKind.Relative));
             }));
         }
     }
