@@ -12,10 +12,13 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Devices;
+using WP7Contrib.View.Transitions.Animation;
+using System.Windows.Media.Imaging;
+using System.IO.IsolatedStorage;
 
 namespace one_click_video
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : AnimatedBasePage
     {
         private VideoCamera _videoCamera;
         private VideoCameraVisualizer _videoCameraVisualizer;
@@ -25,7 +28,9 @@ namespace one_click_video
 
         // Konstruktor
         public MainPage()
-        {  
+        {
+            AnimationContext = LayoutRoot;
+
             InitializeComponent();
 
             _videoCamera = new VideoCamera();
@@ -42,6 +47,14 @@ namespace one_click_video
             this.videoRect.Fill = _videoBrush;
 
             _videoCameraVisualizer.SetSource(_videoCamera);
+        }
+
+        protected override void OnOrientationChanged(OrientationChangedEventArgs e)
+        {
+            if (e.Orientation == PageOrientation.LandscapeLeft)
+            {
+                base.OnOrientationChanged(e);
+            }
         }
 
         private void VideoCamera_Initialized(object sender, EventArgs e)
@@ -76,8 +89,10 @@ namespace one_click_video
 
         private void ShutterPressed(object sender, object e)
         {
+            _dt.Stop();
             _videoCamera.StopRecording();
         }
+
 
         private void VideoCamera_ThumbnailSavedToDisk(object sender, ContentReadyEventArgs e)
         {
@@ -85,10 +100,40 @@ namespace one_click_video
             {
                 string path = System.IO.Path.GetFileNameWithoutExtension(e.RelativePath);
                 path = path.Remove(path.Length - 3, 3) + ".mp4";
-                _videoCamera.AddMediaToCameraRoll(path, e.RelativePath);
 
-                NavigationService.Navigate(new Uri("/PlayPage.xaml?video=" + path, UriKind.Relative));
+                BitmapImage image = new BitmapImage();
+                using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    using (var stream = isoStore.OpenFile(e.RelativePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                    {
+                        image.SetSource(stream);
+                    }
+                }
+
+                this.videoRect.Fill = new ImageBrush() { ImageSource = image };
+                //NavigationService.Navigate(new Uri("/PlayPage.xaml?video=" + path, UriKind.Relative));
+                _videoCamera.AddMediaToCameraRoll(path, e.RelativePath);
             }));
+        }
+
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (animationType == AnimationType.NavigateForwardOut)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            if (animationType == AnimationType.NavigateBackwardOut)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            if (animationType == AnimationType.NavigateForwardIn)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            return new SlideUpAnimator { RootElement = this.LayoutRoot };
         }
     }
 }
