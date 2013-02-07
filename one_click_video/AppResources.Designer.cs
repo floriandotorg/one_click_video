@@ -79,6 +79,24 @@ namespace one_click_video {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die about ähnelt.
+        /// </summary>
+        public static string appbar_about {
+            get {
+                return ResourceManager.GetString("appbar_about", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die stop ähnelt.
+        /// </summary>
+        public static string appbar_stop {
+            get {
+                return ResourceManager.GetString("appbar_stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die contact support ähnelt.
         /// </summary>
         public static string contact_support {
