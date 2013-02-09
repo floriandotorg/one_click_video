@@ -37,8 +37,6 @@ namespace one_click_video
 
             InitializeComponent();
 
-            BuildLocalizedApplicationBar();
-
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 storage.ListFiles();
@@ -79,12 +77,12 @@ namespace one_click_video
 
         private void VideoCamera_RecordingStarted(object sender, EventArgs e)
         {
-            Dispatcher.BeginInvoke(new Action( () =>
+            Dispatcher.BeginInvoke(new Action(() =>
                 {
                     _videoCamera.ShutterPressed += ShutterPressed;
+                    this.timerButton.Tap += ShutterPressed;
 
                     this.RecIconStarting.Visibility = Visibility.Collapsed;
-                    _appBarButton.IsEnabled = true;
 
                     _recStartTime = DateTime.Now;
                     dt_Tick(null, null);
@@ -130,17 +128,18 @@ namespace one_click_video
                         image.SetSource(stream);
                         this.videoRect.Fill = new ImageBrush() { ImageSource = image };
                     }
-                } 
+                }
 
                 this.timer.Visibility = Visibility.Collapsed;
                 this.play.Visibility = Visibility.Visible;
-                _appBarButton.IconUri = new Uri("Icons/dark/appbar.sync.rest.png", UriKind.Relative);
                 this.playButton.Tap += PlayVideo;
             }));
         }
 
         private void PlayVideo(object s, object e)
         {
+            this.playButton.Tap -= PlayVideo;
+
             using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 using (var stream = isoStore.OpenFile("lastVideo.mp4", System.IO.FileMode.Open, System.IO.FileAccess.Read))
@@ -148,10 +147,20 @@ namespace one_click_video
                     this.mediaElement.SetSource(stream);
                 }
             }
+            
             this.play.Visibility = Visibility.Collapsed;
             this.videoRect.Visibility = Visibility.Collapsed;
             this.mediaElement.Visibility = Visibility.Visible;
+            this.mediaElement.MediaEnded += mediaElement_MediaEnded;
             this.mediaElement.Play();
+        }
+
+        void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            this.mediaElement.Visibility = Visibility.Collapsed;
+            this.videoRect.Visibility = Visibility.Visible;
+            this.play.Visibility = Visibility.Visible;
+            this.playButton.Tap += PlayVideo;
         }
 
         protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
@@ -172,35 +181,6 @@ namespace one_click_video
             }
 
             return new SlideUpAnimator { RootElement = this.LayoutRoot };
-        }
-
-        private ApplicationBarIconButton _appBarButton;
-
-        private void BuildLocalizedApplicationBar()
-        {
-            // ApplicationBar der Seite einer neuen Instanz von ApplicationBar zuweisen
-            ApplicationBar = new ApplicationBar();
-            ApplicationBar.BackgroundColor = (Color)Resources["PhoneBackgroundColor"];
-            ApplicationBar.Opacity = .5;
-
-            string path = "";
-            if ((Visibility)Resources["PhoneLightThemeVisibility"] == Visibility.Visible)
-            {
-                path = "Icons/light/";
-            }
-            else
-            {
-                path = "Icons/dark/";
-            }
-
-            _appBarButton = new ApplicationBarIconButton(new Uri(path + "appbar.staph.rest.png", UriKind.Relative));
-            _appBarButton.Text = AppResources.appbar_stop;
-            _appBarButton.Click += ShutterPressed;
-            _appBarButton.IsEnabled = false;
-            ApplicationBar.Buttons.Add(_appBarButton);
-
-            Microsoft.Phone.Shell.ApplicationBarMenuItem appBarMenuItem = new Microsoft.Phone.Shell.ApplicationBarMenuItem(AppResources.appbar_about);
-            ApplicationBar.MenuItems.Add(appBarMenuItem);
         }
     }
 }

@@ -11,7 +11,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Landscape" Orientation="Landscape" shell:SystemTray.IsVisible="True">
+    SupportedOrientations="Landscape" Orientation="Landscape">
 
     <!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -24,8 +24,7 @@
                 <CompositeTransform/>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <MediaElement x:Name="mediaElement" Margin="0,0,80,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Height="480" Width="640" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed">
-        </MediaElement >
+        <MediaElement x:Name="mediaElement" Margin="0,0,80,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Height="480" Width="640" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed"/>
         <Grid x:Name="timer" Margin="538,420,100,20" Grid.RowSpan="2">
         	<Rectangle Fill="#7F000000" HorizontalAlignment="Right" Height="40" Stroke="#80FFFFFF" VerticalAlignment="Bottom" Width="90" RadiusX="5" RadiusY="5"/>
         	<TextBlock x:Name="RecTimer" HorizontalAlignment="Right" Height="30" Margin="0,0,28,5" TextWrapping="Wrap" Text="--:--" VerticalAlignment="Bottom" Width="56" TextAlignment="Center" Foreground="White"/>
@@ -38,10 +37,10 @@
         			<CompositeTransform/>
         		</Rectangle.RenderTransform>
         	</Rectangle>
-        	<Ellipse x:Name="playButton" Fill="#4C000000" HorizontalAlignment="Left" Height="90" Margin="282,195,0,0" Stroke="White" VerticalAlignment="Top" Width="90" StrokeThickness="5"/>
+        	<Ellipse Fill="#4C000000" HorizontalAlignment="Left" Height="90" Margin="357,195,0,0" Stroke="White" VerticalAlignment="Top" Width="90" StrokeThickness="5"/>
         	<Path
         		Stroke="White" 
-        		StrokeThickness="2" Margin="312,220,288,215" Data="M300,200 L400,125 L400,275 z" Stretch="Fill" UseLayoutRounding="False" RenderTransformOrigin="0.5,0.5">
+        		StrokeThickness="2" Margin="386,220,286,215" Data="M300,200 L400,125 L400,275 z" Stretch="Fill" UseLayoutRounding="False" RenderTransformOrigin="0.5,0.5">
         		<Path.RenderTransform>
         			<CompositeTransform ScaleX="-1"/>
         		</Path.RenderTransform>
@@ -50,6 +49,12 @@
         		</Path.Fill>
         	</Path>
         </Grid>
+        <Rectangle x:Name="playButton" RenderTransformOrigin="0.5,0.5" Height="480" Width="640" HorizontalAlignment="Right" VerticalAlignment="Top" Fill="Transparent" Margin="0,0,88,0" Stroke="Transparent">
+        	<Rectangle.RenderTransform>
+        		<CompositeTransform/>
+        	</Rectangle.RenderTransform>
+        </Rectangle>
+        <Rectangle x:Name="timerButton" HorizontalAlignment="Left" Height="45" Margin="605,415,0,0" VerticalAlignment="Top" Width="100" Fill="Transparent" Stroke="Transparent"/>
     </Grid>
  
 </animation:AnimatedBasePage>
