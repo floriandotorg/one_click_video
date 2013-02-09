@@ -124,7 +124,7 @@ namespace one_click_video {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die asdasd ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die saving to camera roll ähnelt.
         /// </summary>
         public static string saving {
             get {
