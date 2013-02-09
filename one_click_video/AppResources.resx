@@ -145,4 +145,7 @@ Contact us, we'd love to get your feedback.</value>
   <data name="version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="saving" xml:space="preserve">
+    <value>asdasd</value>
+  </data>
 </root>

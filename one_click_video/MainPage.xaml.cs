@@ -101,6 +101,12 @@ namespace one_click_video
 
         private void ShutterPressed(object sender, object e)
         {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.progbar.IsIndeterminate = true;
+                this.prog.Visibility = Visibility.Visible;
+            }));
+
             _dt.Stop();
             _videoCamera.StopRecording();
         }
@@ -133,6 +139,9 @@ namespace one_click_video
                 this.timer.Visibility = Visibility.Collapsed;
                 this.play.Visibility = Visibility.Visible;
                 this.playButton.Tap += PlayVideo;
+
+                this.prog.Visibility = Visibility.Collapsed;
+                this.progbar.IsIndeterminate = false;
             }));
         }
 

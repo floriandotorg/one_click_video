@@ -49,6 +49,11 @@
         		</Path.Fill>
         	</Path>
         </Grid>
+        <Grid x:Name="prog" Margin="-75,0,0,0" Grid.RowSpan="2" Visibility="Collapsed">
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="480" Stroke="Black" VerticalAlignment="Top" Width="803" Margin="72,0,0,0"/>
+            <ProgressBar x:Name="progbar" HorizontalAlignment="Center" Height="10" Margin="100,40,0,0" VerticalAlignment="Center" Width="290"/>
+            <TextBlock HorizontalAlignment="Center" Height="35" Margin="100,0,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.saving, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" Width="190" TextAlignment="Center" Foreground="White"/>
+        </Grid>
         <Rectangle x:Name="playButton" RenderTransformOrigin="0.5,0.5" Height="480" Width="640" HorizontalAlignment="Right" VerticalAlignment="Top" Fill="Transparent" Margin="0,0,88,0" Stroke="Transparent">
         	<Rectangle.RenderTransform>
         		<CompositeTransform/>
