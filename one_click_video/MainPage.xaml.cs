@@ -29,6 +29,7 @@ namespace one_click_video
         private VideoBrush _videoBrush;
         private System.Windows.Threading.DispatcherTimer _dt;
         private DateTime _recStartTime;
+        private bool first = true;
 
         // Konstruktor
         public MainPage()
@@ -39,11 +40,14 @@ namespace one_click_video
 
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                storage.ListFiles();
                 storage.DeletePath("");
-                storage.ListFiles();
             }
 
+            StartVideo();
+        }
+
+        private void StartVideo()
+        {
             _videoCamera = new VideoCamera();
 
             // Event is fired when the video camera object has been initialized.
@@ -58,6 +62,20 @@ namespace one_click_video
             this.videoRect.Fill = _videoBrush;
 
             _videoCameraVisualizer.SetSource(_videoCamera);
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            this.prog.Visibility = Visibility.Collapsed;
+            this.progbar.IsIndeterminate = false;
+
+            base.OnNavigatedTo(e);
+
+            if (!first)
+            {
+                StartVideo();
+            }
+            first = false;
         }
 
         protected override void OnOrientationChanged(OrientationChangedEventArgs e)
@@ -105,6 +123,9 @@ namespace one_click_video
             {
                 this.progbar.IsIndeterminate = true;
                 this.prog.Visibility = Visibility.Visible;
+
+                this.RecTimer.Text = "--:--";
+                this.RecIconStarting.Visibility = Visibility.Visible;
             }));
 
             _dt.Stop();
@@ -118,7 +139,6 @@ namespace one_click_video
 
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                storage.CopyFile(e.RelativePath, "lastVideo.jpg", true);
                 storage.CopyFile(path, "lastVideo.mp4", true);
             }
 
@@ -126,70 +146,8 @@ namespace one_click_video
 
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
-                {
-                    using (var stream = storage.OpenFile("lastVideo.jpg", System.IO.FileMode.Open, System.IO.FileAccess.Read))
-                    {
-                        BitmapImage image = new BitmapImage();
-                        image.SetSource(stream);
-                        this.videoRect.Fill = new ImageBrush() { ImageSource = image };
-                    }
-                }
-
-                this.timer.Visibility = Visibility.Collapsed;
-                this.play.Visibility = Visibility.Visible;
-                this.playButton.Tap += PlayVideo;
-
-                this.prog.Visibility = Visibility.Collapsed;
-                this.progbar.IsIndeterminate = false;
+                NavigationService.Navigate(new Uri("/PlayPage.xaml", UriKind.Relative));
             }));
-        }
-
-        private void PlayVideo(object s, object e)
-        {
-            this.playButton.Tap -= PlayVideo;
-
-            using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
-            {
-                using (var stream = isoStore.OpenFile("lastVideo.mp4", System.IO.FileMode.Open, System.IO.FileAccess.Read))
-                {
-                    this.mediaElement.SetSource(stream);
-                }
-            }
-            
-            this.play.Visibility = Visibility.Collapsed;
-            this.videoRect.Visibility = Visibility.Collapsed;
-            this.mediaElement.Visibility = Visibility.Visible;
-            this.mediaElement.MediaEnded += mediaElement_MediaEnded;
-            this.mediaElement.Play();
-        }
-
-        void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            this.mediaElement.Visibility = Visibility.Collapsed;
-            this.videoRect.Visibility = Visibility.Visible;
-            this.play.Visibility = Visibility.Visible;
-            this.playButton.Tap += PlayVideo;
-        }
-
-        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
-        {
-            if (animationType == AnimationType.NavigateForwardOut)
-            {
-                return new SlideDownAnimator { RootElement = LayoutRoot };
-            }
-
-            if (animationType == AnimationType.NavigateBackwardOut)
-            {
-                return new SlideDownAnimator { RootElement = LayoutRoot };
-            }
-
-            if (animationType == AnimationType.NavigateForwardIn)
-            {
-                return new SlideDownAnimator { RootElement = LayoutRoot };
-            }
-
-            return new SlideUpAnimator { RootElement = this.LayoutRoot };
         }
     }
 }
