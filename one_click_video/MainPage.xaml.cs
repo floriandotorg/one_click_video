@@ -48,6 +48,8 @@ namespace one_click_video
 
         private void StartVideo()
         {
+            this.timerButton.Tap -= ShutterPressed;
+
             _videoCamera = new VideoCamera();
 
             // Event is fired when the video camera object has been initialized.
@@ -66,9 +68,11 @@ namespace one_click_video
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            this.RecTimer.Text = "--:--";
+            this.RecIconStarting.Visibility = Visibility.Visible;
             this.prog.Visibility = Visibility.Collapsed;
             this.progbar.IsIndeterminate = false;
-
+            
             base.OnNavigatedTo(e);
 
             if (!first)
@@ -89,7 +93,6 @@ namespace one_click_video
         private void VideoCamera_Initialized(object sender, EventArgs e)
         {
             _videoCamera.RecordingStarted += VideoCamera_RecordingStarted;
-            _videoCamera.ThumbnailSavedToDisk += VideoCamera_ThumbnailSavedToDisk;
             _videoCamera.StartRecording();
         }
 
@@ -123,12 +126,10 @@ namespace one_click_video
             {
                 this.progbar.IsIndeterminate = true;
                 this.prog.Visibility = Visibility.Visible;
-
-                this.RecTimer.Text = "--:--";
-                this.RecIconStarting.Visibility = Visibility.Visible;
             }));
 
             _dt.Stop();
+            _videoCamera.ThumbnailSavedToDisk += VideoCamera_ThumbnailSavedToDisk;
             _videoCamera.StopRecording();
         }
 
@@ -136,6 +137,11 @@ namespace one_click_video
         {
             string path = System.IO.Path.GetFileNameWithoutExtension(e.RelativePath);
             path = path.Remove(path.Length - 3, 3) + ".mp4";
+
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                storage.ListFiles();
+            }
 
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
@@ -148,6 +154,26 @@ namespace one_click_video
             {
                 NavigationService.Navigate(new Uri("/PlayPage.xaml", UriKind.Relative));
             }));
+        }
+
+        private void VideoCamera_ThumbnailSavedToDisk_Info(object sender, ContentReadyEventArgs e)
+        {
+            string path = System.IO.Path.GetFileNameWithoutExtension(e.RelativePath);
+            path = path.Remove(path.Length - 3, 3) + ".mp4";
+
+            _videoCamera.AddMediaToCameraRoll(path, e.RelativePath);
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                NavigationService.Navigate(new Uri("/InfoPage.xaml", UriKind.Relative));
+            }));
+        }
+
+        private void infoButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            _dt.Stop();
+            _videoCamera.ThumbnailSavedToDisk += VideoCamera_ThumbnailSavedToDisk_Info;
+            _videoCamera.StopRecording();
         }
     }
 }

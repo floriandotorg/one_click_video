@@ -19,28 +19,30 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Rectangle x:Name="videoRect" Fill="Black" Margin="0,0,80,0" Grid.RowSpan="2" Stroke="Black" RenderTransformOrigin="0.5,0.5" Height="480" Width="640" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Rectangle x:Name="videoRect" Margin="0,0,80,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Height="480" Width="640" HorizontalAlignment="Right" VerticalAlignment="Top" Fill="Black" Stroke="Black">
             <Rectangle.RenderTransform>
                 <CompositeTransform/>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <Grid x:Name="timer" Margin="538,420,100,20" Grid.RowSpan="2">
+        <Grid x:Name="timer" Margin="543,419,95,21">
         	<Rectangle Fill="#7F000000" HorizontalAlignment="Right" Height="40" Stroke="#80FFFFFF" VerticalAlignment="Bottom" Width="90" RadiusX="5" RadiusY="5"/>
         	<TextBlock x:Name="RecTimer" HorizontalAlignment="Right" Height="30" Margin="0,0,28,5" TextWrapping="Wrap" Text="--:--" VerticalAlignment="Bottom" Width="56" TextAlignment="Center" Foreground="White"/>
         	<Ellipse x:Name="RecIconRecording" Fill="Red" HorizontalAlignment="Right" Height="10" Margin="0,0,13,15" Stroke="Red" VerticalAlignment="Bottom" Width="10"/>
         	<Rectangle x:Name="RecIconStarting" HorizontalAlignment="Right" Height="10" Margin="0,0,13,15" VerticalAlignment="Bottom" Width="10" Fill="#FF7F7F7F" Stroke="#FF7F7F7F"/>
         </Grid>
+        <Viewbox x:Name="info" Margin="95,436,676,21">
+        	<Grid Height="29" Width="29">
+        		<Ellipse Fill="#00F4F4F5" HorizontalAlignment="Left" Height="29" Stroke="White" VerticalAlignment="Top" Width="29" Opacity="0.5"/>
+        		<Image Margin="7,3,8,3" Source="/info.png" Stretch="Fill" Opacity="0.515"/>
+        	</Grid>
+        </Viewbox>
         <Grid x:Name="prog" Margin="-75,0,0,0" Grid.RowSpan="2" Visibility="Collapsed">
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="480" Stroke="Black" VerticalAlignment="Top" Width="803" Margin="72,0,0,0"/>
             <ProgressBar x:Name="progbar" HorizontalAlignment="Center" Height="10" Margin="100,40,0,0" VerticalAlignment="Center" Width="290"/>
             <TextBlock HorizontalAlignment="Center" Height="35" Margin="100,0,0,0" TextWrapping="Wrap" Text="{Binding LocalizedResources.saving, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" Width="190" TextAlignment="Center" Foreground="White"/>
         </Grid>
-        <Rectangle x:Name="playButton" RenderTransformOrigin="0.5,0.5" Height="480" Width="640" HorizontalAlignment="Right" VerticalAlignment="Top" Fill="Transparent" Margin="0,0,88,0" Stroke="Transparent">
-        	<Rectangle.RenderTransform>
-        		<CompositeTransform/>
-        	</Rectangle.RenderTransform>
-        </Rectangle>
-        <Rectangle x:Name="timerButton" HorizontalAlignment="Left" Height="45" Margin="605,415,0,0" VerticalAlignment="Top" Width="100" Fill="Transparent" Stroke="Transparent"/>
+        <Rectangle x:Name="timerButton" HorizontalAlignment="Left" Height="45" Margin="610,423,0,0" VerticalAlignment="Top" Width="100" Fill="Transparent" Stroke="Transparent"/>
+        <Rectangle x:Name="infoButton" HorizontalAlignment="Left" Height="49" Margin="80,431,0,0" VerticalAlignment="Top" Width="48" Fill="Transparent" Stroke="Transparent" Tap="infoButton_Tap"/>
     </Grid>
  
 </animation:AnimatedBasePage>

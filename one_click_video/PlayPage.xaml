@@ -58,7 +58,7 @@
         	<Rectangle HorizontalAlignment="Left" Height="175" Margin="0,305,0,0" VerticalAlignment="Top" Width="800" Opacity="0.5" Fill="Black" Stroke="Black"/>
         	<Slider x:Name="timeline" HorizontalAlignment="Right" Margin="210,410,100,0" VerticalAlignment="Top" Width="480" Maximum="1" LargeChange="0.1" SmallChange="0.01" Height="100" ManipulationCompleted="timeline_ManipulationCompleted" ManipulationStarted="timeline_ManipulationStarted" />
         	<TextBlock x:Name="timer" HorizontalAlignment="Left" Height="30" Margin="100,431,0,0" TextWrapping="Wrap" Text="00:00/00:00" VerticalAlignment="Top" Width="105"/>
-        	<Grid x:Name="pause" Visibility="Collapsed" Margin="0,0,0,30">
+        	<Grid x:Name="pause" Visibility="Collapsed" Margin="0,8,0,22">
         		<Rectangle HorizontalAlignment="Left" Height="50" Margin="385,340,0,0" Stroke="White" StrokeThickness="2" VerticalAlignment="Top" Width="10">
         			<Rectangle.Fill>
         				<SolidColorBrush Color="White" Opacity="1"/>
@@ -70,7 +70,7 @@
         			</Rectangle.Fill>
         		</Rectangle>
         	</Grid>
-        	<Grid Margin="355,320,355,100">
+        	<Grid Margin="355,328,355,92">
         		<Ellipse HorizontalAlignment="Left" Height="90" Stroke="White" VerticalAlignment="Top" Width="90" StrokeThickness="2" Fill="#00000000"/>
         		<Path x:Name="play"
         			Stroke="White" 

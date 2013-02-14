@@ -169,6 +169,7 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="floyd.png" />
     <Content Include="Icons\dark\appbar.add.rest.png" />
     <Content Include="Icons\dark\appbar.back.rest.png" />
     <Content Include="Icons\dark\appbar.basecircle.rest.png" />
@@ -233,6 +234,7 @@
     <Content Include="Icons\light\appbar.transport.play.rest.png" />
     <Content Include="Icons\light\appbar.transport.rew.rest.png" />
     <Content Include="Icons\light\appbar.upload.rest.png" />
+    <Content Include="info.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
