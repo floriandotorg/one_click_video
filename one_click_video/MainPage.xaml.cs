@@ -30,6 +30,7 @@ namespace one_click_video
         private System.Windows.Threading.DispatcherTimer _dt;
         private DateTime _recStartTime;
         private bool first = true;
+        private bool app_quit = true;
 
         // Konstruktor
         public MainPage()
@@ -72,6 +73,7 @@ namespace one_click_video
             this.RecIconStarting.Visibility = Visibility.Visible;
             this.prog.Visibility = Visibility.Collapsed;
             this.progbar.IsIndeterminate = false;
+            app_quit = true;
             
             base.OnNavigatedTo(e);
 
@@ -80,6 +82,25 @@ namespace one_click_video
                 StartVideo();
             }
             first = false;
+        }
+
+        private void VideoCamera_ThumbnailSavedToDisk_AppQuit(object sender, ContentReadyEventArgs e)
+        {
+            string path = System.IO.Path.GetFileNameWithoutExtension(e.RelativePath);
+            path = path.Remove(path.Length - 3, 3) + ".mp4";
+
+            _videoCamera.AddMediaToCameraRoll(path, e.RelativePath);
+        }
+
+        protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            if (app_quit)
+            {
+                _dt.Stop();
+                _videoCamera.ThumbnailSavedToDisk += VideoCamera_ThumbnailSavedToDisk_AppQuit;
+                _videoCamera.StopRecording();
+            }
+            base.OnNavigatingFrom(e);
         }
 
         protected override void OnOrientationChanged(OrientationChangedEventArgs e)
@@ -152,6 +173,7 @@ namespace one_click_video
 
             Dispatcher.BeginInvoke(new Action(() =>
             {
+                app_quit = false;
                 NavigationService.Navigate(new Uri("/PlayPage.xaml", UriKind.Relative));
             }));
         }
@@ -165,6 +187,7 @@ namespace one_click_video
 
             Dispatcher.BeginInvoke(new Action(() =>
             {
+                app_quit = false;
                 NavigationService.Navigate(new Uri("/InfoPage.xaml", UriKind.Relative));
             }));
         }

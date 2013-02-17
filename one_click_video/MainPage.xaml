@@ -32,7 +32,7 @@
         </Grid>
         <Viewbox x:Name="info" Margin="95,436,676,21">
         	<Grid Height="29" Width="29">
-        		<Ellipse Fill="#00F4F4F5" HorizontalAlignment="Left" Height="29" Stroke="White" VerticalAlignment="Top" Width="29" Opacity="0.5"/>
+        		<Ellipse Fill="#00F4F4F5" HorizontalAlignment="Left" Height="29" Stroke="White" VerticalAlignment="Top" Width="29" Opacity="0.5" StrokeThickness="2"/>
         		<Image Margin="7,3,8,3" Source="/info.png" Stretch="Fill" Opacity="0.515"/>
         	</Grid>
         </Viewbox>
