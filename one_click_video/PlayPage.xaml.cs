@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using WP7Contrib.View.Transitions.Animation;
 using System.IO.IsolatedStorage;
+using System.Windows.Media;
 
 namespace one_click_video
 {
@@ -25,6 +26,15 @@ namespace one_click_video
             this.button.Tap += ButtonTap;
             this.mediaElement.Tap += mediaElement_Tap;
             this.mediaElement.CurrentStateChanged += mediaElement_CurrentStateChanged;
+            this.mediaElement.MediaEnded += mediaElement_MediaEnded;
+        }
+
+        void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            this.play.Visibility = Visibility.Visible;
+            this.pause.Visibility = Visibility.Collapsed;
+            this.controls.Opacity = 1;
+            this.controls.Visibility = Visibility.Visible;
         }
 
         void mediaElement_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -50,7 +60,7 @@ namespace one_click_video
             {
                 this.play.Visibility = Visibility.Visible;
                 this.pause.Visibility = Visibility.Collapsed;
-            }
+            }   
         }
 
         void ButtonTap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -81,12 +91,12 @@ namespace one_click_video
             if (this.mediaElement.NaturalDuration.HasTimeSpan && this.mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds != 0)
             {
                 this.timeline.Value = this.mediaElement.Position.TotalMilliseconds / this.mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds;
-                this.timer.Text = this.mediaElement.Position.ToString(@"mm\:ss") + "/" + this.mediaElement.NaturalDuration.TimeSpan.ToString(@"mm\:ss");
+                this.timer.Text = this.mediaElement.Position.ToString(@"m\:ss") + " / " + this.mediaElement.NaturalDuration.TimeSpan.ToString(@"m\:ss");
             }
             else
             {
                 this.timeline.Value = .0;
-                this.timer.Text = "00:00/00:00";
+                this.timer.Text = "0:00 / 0:00";
             }
         }
 
@@ -145,6 +155,28 @@ namespace one_click_video
         private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/InfoPage.xaml", UriKind.Relative));
+        }
+
+        private void button_ManipulationStarted(object sender, System.Windows.Input.ManipulationStartedEventArgs e)
+        {
+            this.elli.Fill = new SolidColorBrush(Color.FromArgb(255,255,255,255));
+            this.pause1.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            this.pause1.Stroke = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            this.pause2.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            this.pause2.Stroke = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            this.play.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            this.play.Stroke = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+        }
+
+        private void button_ManipulationCompleted(object sender, System.Windows.Input.ManipulationCompletedEventArgs e)
+        {
+            this.elli.Fill = new SolidColorBrush(Color.FromArgb(0, 255, 255, 255));
+            this.pause1.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            this.pause1.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            this.pause2.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            this.pause2.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            this.play.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            this.play.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
         }
     }
 }
