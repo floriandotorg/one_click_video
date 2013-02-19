@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about" xml:space="preserve">
-    <value>about</value>
+    <value>info</value>
   </data>
   <data name="app_name" xml:space="preserve">
     <value>1-Click Video</value>
   </data>
   <data name="contact_support" xml:space="preserve">
-    <value>contact support</value>
+    <value>support</value>
   </data>
   <data name="rate_and_review" xml:space="preserve">
-    <value>rate and review</value>
+    <value>bewerten</value>
   </data>
   <data name="review" xml:space="preserve">
-    <value>If you like this app, please consider to rate and review.</value>
+    <value>
+Gefällt Ihnen unsere App?</value>
+  </data>
+  <data name="saving" xml:space="preserve">
+    <value>Speichern in Eigene Aufnahmen</value>
   </data>
   <data name="support" xml:space="preserve">
-    <value>You have questions or comments?
-Contact us, we'd love to get your feedback.</value>
+    <value>Sie haben eine Frage, eine Anregung, oder möchten uns Ihre Meinung mitteilen?</value>
   </data>
   <data name="version" xml:space="preserve">
     <value>Version</value>
-  </data>
-  <data name="saving" xml:space="preserve">
-    <value>saving to camera roll</value>
   </data>
 </root>
