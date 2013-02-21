@@ -19,6 +19,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Foundation;
 using Microsoft.Phone.Tasks;
+using Microsoft.Phone.Shell;
 
 namespace one_click_video
 {
@@ -30,10 +31,20 @@ namespace one_click_video
             InitializeComponent();
 
             // Beispielcode zur Lokalisierung der ApplicationBar
-            //BuildLocalizedApplicationBar();d;
+            //BuildLocalizedApplicationBar();
         }
 
-        
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            ShellTile SecondaryTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("RecordingPage"));
+
+            //if (SecondaryTile != null)
+            {
+                NavigationService.Navigate(new Uri("/TilePage.xaml", UriKind.Relative));
+            }
+        }
 
         // Beispielcode zur Erstellung einer lokalisierten ApplicationBar
         //private void BuildLocalizedApplicationBar()
