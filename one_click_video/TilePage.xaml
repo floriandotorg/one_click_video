@@ -1,35 +1,34 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="one_click_video.TilePage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d"
-    shell:SystemTray.IsVisible="True">
+	x:Class="one_click_video.TilePage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+	FontFamily="{StaticResource PhoneFontFamilyNormal}"
+	FontSize="{StaticResource PhoneFontSizeNormal}"
+	Foreground="{StaticResource PhoneForegroundBrush}"
+	SupportedOrientations="Portrait" Orientation="Portrait"
+	mc:Ignorable="d"
+	shell:SystemTray.IsVisible="True">
 	
-    <!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-    	<Button Content="pin tile" Margin="141,604,141,0" Grid.Row="1" VerticalAlignment="Top" Width="198" Click="Button_Click_1"/>
-        <Image Margin="105,-384,-105,351" Grid.RowSpan="2" Source="/sdf.png" Stretch="Fill" Opacity="0"/>
-        <Grid Margin="133,150,133,447" Grid.RowSpan="2">
-        	<Rectangle HorizontalAlignment="Left" Height="210" Margin="4,14,0,0" Stroke="{StaticResource PhoneAccentBrush}" VerticalAlignment="Top" Width="210" Fill="{StaticResource PhoneAccentBrush}"/>
-        	<Image Margin="0,0,0,10" Source="/RecordingTileImage.png" Stretch="Fill"/>
-        	<TextBlock HorizontalAlignment="Left" Height="35" Margin="16,189,0,0" TextWrapping="Wrap" Text="1-Click Video" VerticalAlignment="Top" Width="155"/>
-        </Grid>
-        <!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
+	<!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Button Content="pin tile" Margin="141,604,141,0" Grid.Row="1" VerticalAlignment="Top" Width="198" Click="Button_Click_1"/>
+		<Grid Margin="133,156,133,0" Grid.RowSpan="2" Width="214" Height="224" MinWidth="214" MinHeight="224" MaxWidth="214" MaxHeight="224" HorizontalAlignment="Center" VerticalAlignment="Top">
+			<Rectangle HorizontalAlignment="Left" Height="210" Margin="4,14,0,0" Stroke="{StaticResource PhoneAccentBrush}" VerticalAlignment="Top" Width="210" Fill="{StaticResource PhoneAccentBrush}"/>
+			<Image Margin="3,1,1,13" Source="/RecordingTileImageMedium.png" Stretch="Fill" Width="210" Height="210"/>
+			<TextBlock HorizontalAlignment="Left" Height="35" Margin="16,189,0,0" TextWrapping="Wrap" Text="1-Click Video" VerticalAlignment="Top" Width="155"/>
+		</Grid>
+		<!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
 
-        <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
-    </Grid>
+		<!--ContentPanel - zusätzliche Inhalte hier platzieren-->
+	</Grid>
 
 </phone:PhoneApplicationPage>

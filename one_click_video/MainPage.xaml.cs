@@ -40,7 +40,7 @@ namespace one_click_video
 
             ShellTile SecondaryTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("RecordingPage"));
 
-            //if (SecondaryTile != null)
+            if (SecondaryTile == null)
             {
                 NavigationService.Navigate(new Uri("/TilePage.xaml", UriKind.Relative));
             }

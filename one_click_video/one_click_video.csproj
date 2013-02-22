@@ -155,8 +155,9 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RecordingTileImage.png" />
-    <Content Include="sdf.png" />
+    <Content Include="RecordingTileImageLarge.png" />
+    <Content Include="RecordingTileImageMedium.png" />
+    <Content Include="RecordingTileImageSmall.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
