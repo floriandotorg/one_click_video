@@ -20,15 +20,23 @@ using Windows.Storage.Streams;
 using Windows.Foundation;
 using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Shell;
+using WP7Contrib.View.Transitions.Animation;
 
 namespace one_click_video
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : AnimatedBasePage
     {
+        private System.Windows.Threading.DispatcherTimer _dt = new System.Windows.Threading.DispatcherTimer();
+
         // Konstruktor
         public MainPage()
         {
             InitializeComponent();
+
+            AnimationContext = LayoutRoot;
+
+            _dt.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            _dt.Tick += dt_Tick;
 
             // Beispielcode zur Lokalisierung der ApplicationBar
             //BuildLocalizedApplicationBar();
@@ -38,12 +46,39 @@ namespace one_click_video
         {
             base.OnNavigatedTo(e);
 
+            _dt.Start();
+        }
+
+        void dt_Tick(object sender, EventArgs e)
+        {
+            _dt.Stop();
+
             ShellTile SecondaryTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("RecordingPage"));
 
             if (SecondaryTile == null)
             {
                 NavigationService.Navigate(new Uri("/TilePage.xaml", UriKind.Relative));
             }
+        }
+
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (animationType == AnimationType.NavigateForwardOut)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            if (animationType == AnimationType.NavigateBackwardOut)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            if (animationType == AnimationType.NavigateForwardIn)
+            {
+                return new SlideUpAnimator { RootElement = LayoutRoot };
+            }
+
+            return new SlideUpAnimator { RootElement = this.LayoutRoot };
         }
 
         // Beispielcode zur Erstellung einer lokalisierten ApplicationBar

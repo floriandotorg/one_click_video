@@ -13,10 +13,11 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Phone.Media.Capture;
 using Windows.Foundation;
+using WP7Contrib.View.Transitions.Animation;
 
 namespace one_click_video
 {
-    public partial class RecordingPage : PhoneApplicationPage
+    public partial class RecordingPage : AnimatedBasePage
     {
         private AudioVideoCaptureDevice _dev;
         private VideoBrush _videoBrush;
@@ -26,6 +27,8 @@ namespace one_click_video
         public RecordingPage()
         {
             InitializeComponent();
+
+            AnimationContext = LayoutRoot;
 
             OrientationChanged += RecordingPage_OrientationChanged;
         }
@@ -102,6 +105,26 @@ namespace one_click_video
                     _dev = null;
                 };
             }
+        }
+
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (animationType == AnimationType.NavigateForwardOut)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            if (animationType == AnimationType.NavigateBackwardOut)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            if (animationType == AnimationType.NavigateForwardIn)
+            {
+                return new SlideUpAnimator { RootElement = LayoutRoot };
+            }
+
+            return new SlideUpAnimator { RootElement = this.LayoutRoot };
         }
     }
 }

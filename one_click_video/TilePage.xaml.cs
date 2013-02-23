@@ -7,19 +7,34 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using WP7Contrib.View.Transitions.Animation;
 
 namespace one_click_video
 {
-    public partial class TilePage : PhoneApplicationPage
+    public partial class TilePage : AnimatedBasePage
     {
+        private System.Windows.Threading.DispatcherTimer _dt = new System.Windows.Threading.DispatcherTimer();
+
         public TilePage()
         {
             InitializeComponent();
+
+            AnimationContext = LayoutRoot;
+
+            _dt.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            _dt.Tick += dt_Tick;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            _dt.Start();
+        }
+
+        void dt_Tick(object sender, EventArgs e)
+        {
+            _dt.Stop();
 
             ShellTile SecondaryTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("RecordingPage"));
 
@@ -45,6 +60,26 @@ namespace one_click_video
 
                 ShellTile.Create(new Uri("/RecordingPage.xaml", UriKind.Relative), tile, true);
             }
+        }
+
+        protected override AnimatorHelperBase GetAnimation(AnimationType animationType, Uri toOrFrom)
+        {
+            if (animationType == AnimationType.NavigateForwardOut)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            if (animationType == AnimationType.NavigateBackwardOut)
+            {
+                return new SlideDownAnimator { RootElement = LayoutRoot };
+            }
+
+            if (animationType == AnimationType.NavigateForwardIn)
+            {
+                return new SlideUpAnimator { RootElement = LayoutRoot };
+            }
+
+            return new SlideUpAnimator { RootElement = this.LayoutRoot };
         }
     }
 }
