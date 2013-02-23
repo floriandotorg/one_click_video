@@ -22,7 +22,8 @@ namespace one_click_video
         private AudioVideoCaptureDevice _dev;
         private VideoBrush _videoBrush;
         private IRandomAccessStream _sst;
-        private string _path;
+        private System.Windows.Threading.DispatcherTimer _dt;
+        private DateTime _recStartTime;
 
         public RecordingPage()
         {
@@ -37,14 +38,44 @@ namespace one_click_video
         {
             base.OnNavigatedTo(e);
 
-            //CameraCaptureTask cameraCaptureTask = new CameraCaptureTask();
-            //cameraCaptureTask.Show();
+            _dt = new System.Windows.Threading.DispatcherTimer();
+            _dt.Interval = new TimeSpan(0, 0, 0, 1, 0);
+            _dt.Tick += dt_Tick;
 
             ActivateCamera();
         }
 
+        void dt_Tick(object sender, EventArgs e)
+        {
+            TimeSpan duration = DateTime.Now - _recStartTime + TimeSpan.FromSeconds(1);
+            this.RecTimer.Text = duration.ToString(@"mm\:ss");
+        }
+
+        void CameraButtons_ShutterKeyPressed(object sender, EventArgs e)
+        {
+            _dt.Stop();
+
+            StopCamera();
+        }
+
+        async void StopCamera()
+        {
+            await _dev.StopRecordingAsync();
+            _dev.Dispose();
+            _dev = null;
+
+            await _sst.FlushAsync();
+            _sst.Dispose();
+            _sst = null;
+
+            NavigationService.Navigate(new Uri("/PlayPage.xaml", UriKind.Relative));
+        }
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            this.timer.Tap -= CameraButtons_ShutterKeyPressed;
+            CameraButtons.ShutterKeyPressed -= CameraButtons_ShutterKeyPressed;
+            
             if (_dev != null)
             {
                 _dev.Dispose();
@@ -54,19 +85,30 @@ namespace one_click_video
             base.OnNavigatedFrom(e);
         }
 
+        protected override void OnOrientationChanged(OrientationChangedEventArgs e)
+        {
+            if (e.Orientation == PageOrientation.LandscapeLeft)
+            {
+                base.OnOrientationChanged(e);
+            }
+        }
+
         private void RecordingPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
-            if (this.Orientation == PageOrientation.LandscapeLeft)
+            if (_videoBrush != null)
             {
-                _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 - _dev.SensorRotationInDegrees };
-            }
-            else if (this.Orientation == PageOrientation.LandscapeRight)
-            {
-                _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 + _dev.SensorRotationInDegrees };
-            }
-            else if (this.Orientation == PageOrientation.PortraitUp)
-            {
-                _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = _dev.SensorRotationInDegrees };
+                if (this.Orientation == PageOrientation.LandscapeLeft)
+                {
+                    _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 - _dev.SensorRotationInDegrees };
+                }
+                else if (this.Orientation == PageOrientation.LandscapeRight)
+                {
+                    _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 + _dev.SensorRotationInDegrees };
+                }
+                else if (this.Orientation == PageOrientation.PortraitUp)
+                {
+                    _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = _dev.SensorRotationInDegrees };
+                }
             }
         }
 
@@ -87,10 +129,18 @@ namespace one_click_video
 
                     StorageFolder localFolder = ApplicationData.Current.LocalFolder;
                     StorageFile storageFile = await localFolder.CreateFileAsync("CameraMovie.mp4", CreationCollisionOption.ReplaceExisting);
-                    _path = storageFile.Path;
 
                     _sst = await storageFile.OpenAsync(FileAccessMode.ReadWrite);
                     await _dev.StartRecordingToStreamAsync(_sst);
+
+                    ////////////////////////////////////////////////////////////////////
+                    this.RecIconStarting.Visibility = Visibility.Collapsed;
+                    _recStartTime = DateTime.Now;
+                    dt_Tick(null, null);
+                    _dt.Start();
+
+                    this.timer.Tap += CameraButtons_ShutterKeyPressed;
+                    CameraButtons.ShutterKeyPressed += CameraButtons_ShutterKeyPressed;
                 }
             }
         }
