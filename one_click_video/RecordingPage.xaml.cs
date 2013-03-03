@@ -14,6 +14,8 @@ using Windows.Storage.Streams;
 using Windows.Phone.Media.Capture;
 using Windows.Foundation;
 using WP7Contrib.View.Transitions.Animation;
+using System.Windows.Media.Imaging;
+using System.IO.IsolatedStorage;
 
 namespace one_click_video
 {
@@ -24,6 +26,7 @@ namespace one_click_video
         private IRandomAccessStream _sst;
         private System.Windows.Threading.DispatcherTimer _dt;
         private DateTime _recStartTime;
+        private string lastVideo;
 
         public RecordingPage()
         {
@@ -68,7 +71,7 @@ namespace one_click_video
             _sst.Dispose();
             _sst = null;
 
-            NavigationService.Navigate(new Uri("/PlayPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/PlayPage.xaml?file=" + lastVideo, UriKind.Relative));
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -120,17 +123,31 @@ namespace one_click_video
                 {
                     _dev = await AudioVideoCaptureDevice.OpenAsync(CameraSensorLocation.Back, AudioVideoCaptureDevice.GetAvailableCaptureResolutions(CameraSensorLocation.Back).First());
 
-                    _videoBrush = new VideoBrush();
+                    await _dev.SetPreviewResolutionAsync(AudioVideoCaptureDevice.GetAvailablePreviewResolutions(CameraSensorLocation.Back).First());
 
+                    _videoBrush = new VideoBrush();
                     _videoBrush.SetSource(_dev);
                     RecordingPage_OrientationChanged(null, null);
-
                     this.videoRect.Fill = _videoBrush;
 
-                    StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                    StorageFile storageFile = await localFolder.CreateFileAsync("CameraMovie.mp4", CreationCollisionOption.ReplaceExisting);
+                    lastVideo = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 
-                    _sst = await storageFile.OpenAsync(FileAccessMode.ReadWrite);
+                    //////////Thumbnail
+                    using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+                    {
+                        using (var file = storage.CreateFile(lastVideo + ".jpg"))
+                        {
+                            WriteableBitmap bmap = new WriteableBitmap((int)_dev.PreviewResolution.Width, (int)_dev.PreviewResolution.Height);
+                            _dev.GetPreviewBufferArgb(bmap.Pixels);
+                            bmap.SaveJpeg(file, bmap.PixelWidth, bmap.PixelHeight, 0, 90);
+                        }
+                    }
+
+                    ///////////Video
+                    StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                    StorageFile videoFile = await localFolder.CreateFileAsync(lastVideo + ".mp4", CreationCollisionOption.ReplaceExisting);
+
+                    _sst = await videoFile.OpenAsync(FileAccessMode.ReadWrite);
                     await _dev.StartRecordingToStreamAsync(_sst);
 
                     ////////////////////////////////////////////////////////////////////

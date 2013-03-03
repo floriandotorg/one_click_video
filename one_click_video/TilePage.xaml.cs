@@ -29,19 +29,18 @@ namespace one_click_video
         {
             base.OnNavigatedTo(e);
 
-            _dt.Start();
+            ShellTile SecondaryTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("RecordingPage"));
+
+            if (SecondaryTile != null)
+            {
+                _dt.Start();
+            }
         }
 
         void dt_Tick(object sender, EventArgs e)
         {
             _dt.Stop();
-
-            ShellTile SecondaryTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("RecordingPage"));
-
-            if (SecondaryTile != null)
-            {
-                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
-            }
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)

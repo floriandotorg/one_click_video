@@ -6,7 +6,10 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:one_click_video"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:animation="clr-namespace:WP7Contrib.View.Transitions.Animation;assembly=WP7Contrib.View.Transitions"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -14,11 +17,61 @@
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
 
+    <animation:AnimatedBasePage.Resources>
+        <local:ThumbnailConverter x:Key="thum"></local:ThumbnailConverter>
+    </animation:AnimatedBasePage.Resources>
+
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
+            <TextBlock Text="Aufnahmen" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+        <ListBox x:Name="PictureGrid" Margin="12,10,10,10" Grid.Row="1">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                	<toolkit:WrapPanel ItemWidth="110" ItemHeight="110"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="100" Width="100" Tap="GridTap" >
+                        <Grid.Resources>
+                            <local:ImageMetadata x:Key="Metadata" Data="{Binding}" />
+                        </Grid.Resources>
+                		<Image Source="{Binding Converter={StaticResource thum}}" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                		<Ellipse Height="40" Margin="30" Stroke="White" Width="40" StrokeThickness="2"/>
+                		<Path x:Name="play"
+                			Stroke="White" 
+                			StrokeThickness="2" Margin="45,41.415,40.998,40" Data="M300,200 L400,125 L400,275 z" Stretch="Fill" UseLayoutRounding="False" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False">
+                			<Path.RenderTransform>
+                				<CompositeTransform ScaleX="-1"/>
+                			</Path.RenderTransform>
+                			<Path.Fill>
+                				<SolidColorBrush Color="White" Opacity="1"/>
+                			</Path.Fill>
+                		</Path>
+                	</Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--<ItemsControl x:Name="bla">
+            <ItemsPanelTemplate>
+                <toolkit:WrapPanel />
+            </ItemsPanelTemplate>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Image Height="100" Width="100" Source="{Binding Converter={StaticResource thum}}" Stretch="Fill"></Image>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>-->
+
     </Grid>
 
 </animation:AnimatedBasePage>

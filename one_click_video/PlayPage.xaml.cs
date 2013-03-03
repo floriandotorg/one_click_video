@@ -117,7 +117,7 @@ namespace one_click_video
 
             using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                using (var stream = isoStore.OpenFile("CameraMovie.mp4", System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                using (var stream = isoStore.OpenFile(NavigationContext.QueryString["file"] + ".mp4", System.IO.FileMode.Open, System.IO.FileAccess.Read))
                 {
                     this.mediaElement.SetSource(stream);
                 }
