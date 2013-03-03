@@ -100,14 +100,6 @@ namespace one_click_video
             }
         }
 
-        protected override void OnOrientationChanged(OrientationChangedEventArgs e)
-        {
-            if (e.Orientation == PageOrientation.LandscapeLeft)
-            {
-                base.OnOrientationChanged(e);
-            }
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.play.Visibility = Visibility.Collapsed;
