@@ -18,7 +18,7 @@
     shell:SystemTray.IsVisible="False">
 
     <animation:AnimatedBasePage.Resources>
-        <local:ThumbnailConverter x:Key="thum"></local:ThumbnailConverter>
+        <local:ThumbnailConverter x:Key="thum" />
     </animation:AnimatedBasePage.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -27,12 +27,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
             <TextBlock Text="Aufnahmen" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
-        <ListBox x:Name="PictureGrid" Margin="12,10,10,10" Grid.Row="1">
+        <ListBox x:Name="PictureGrid" Margin="12,10,10,10" Grid.Row="1" SelectionMode="Multiple">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                 	<toolkit:WrapPanel ItemWidth="110" ItemHeight="110"/>
@@ -45,10 +44,10 @@
                             <local:ImageMetadata x:Key="Metadata" Data="{Binding}" />
                         </Grid.Resources>
                 		<Image Source="{Binding Converter={StaticResource thum}}" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"/>
-                		<Ellipse Height="40" Margin="30" Stroke="White" Width="40" StrokeThickness="2"/>
+                		<Rectangle HorizontalAlignment="Left" Height="25" Margin="0,75,0,0" Stroke="Black" StrokeThickness="2" VerticalAlignment="Top" Width="100" Fill="Black" Opacity="0.7"/>
                 		<Path x:Name="play"
                 			Stroke="White" 
-                			StrokeThickness="2" Margin="45,41.415,40.998,40" Data="M300,200 L400,125 L400,275 z" Stretch="Fill" UseLayoutRounding="False" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False">
+                			StrokeThickness="2" Margin="5.873,81.335,84.104,6.279" Data="M300,200 L400,125 L400,275 z" Stretch="Fill" UseLayoutRounding="False" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False">
                 			<Path.RenderTransform>
                 				<CompositeTransform ScaleX="-1"/>
                 			</Path.RenderTransform>
@@ -56,21 +55,13 @@
                 				<SolidColorBrush Color="White" Opacity="1"/>
                 			</Path.Fill>
                 		</Path>
+                		<TextBlock HorizontalAlignment="Left" Height="25" Margin="61,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="37" Foreground="White" FontFamily="Segoe WP" FontSize="17.333" Text="0:00" TextAlignment="Right"/>
+                		<Rectangle x:Name="inactive" HorizontalAlignment="Left" Height="100" Stroke="#FF9B9B9B" VerticalAlignment="Top" Width="100" Visibility="Collapsed" StrokeThickness="3"/>
+                        <Rectangle x:Name="active" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="5" Visibility="Collapsed"/>
                 	</Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        <!--<ItemsControl x:Name="bla">
-            <ItemsPanelTemplate>
-                <toolkit:WrapPanel />
-            </ItemsPanelTemplate>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Image Height="100" Width="100" Source="{Binding Converter={StaticResource thum}}" Stretch="Fill"></Image>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>-->
 
     </Grid>
 

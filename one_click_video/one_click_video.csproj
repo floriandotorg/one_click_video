@@ -92,8 +92,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CameraStreamSource.cs" />
-    <Compile Include="IsolatedStorageUtility.cs" />
+    <Compile Include="BooleanToVisibilityConverter.cs" />
+    <Compile Include="FindChild.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -146,7 +146,9 @@
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\AppBar\Dark\appbar.manage.rest.png" />
+    <Content Include="Assets\AppBar\Dark\delete.png" />
     <Content Include="Assets\AppBar\Light\appbar.manage.rest.png" />
+    <Content Include="Assets\AppBar\Light\delete.png" />
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

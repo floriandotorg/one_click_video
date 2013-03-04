@@ -26,7 +26,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.Globalization;
 using System.IO.IsolatedStorage;
-using System.Windows;
+using utility;
 
 namespace one_click_video
 {
@@ -70,6 +70,9 @@ namespace one_click_video
     public partial class MainPage : AnimatedBasePage
     {
         private System.Windows.Threading.DispatcherTimer _dt = new System.Windows.Threading.DispatcherTimer();
+        private ApplicationBar _applicationBar;
+        private ApplicationBar _choosingApplicationBar;
+        private bool _choosing = false;
 
         // Konstruktor
         public MainPage()
@@ -81,7 +84,8 @@ namespace one_click_video
             _dt.Interval = new TimeSpan(0, 0, 0, 0, 500);
             _dt.Tick += dt_Tick;
 
-            BuildLocalizedApplicationBar();
+            BuildLocalizedApplicationBars();
+            ApplicationBar = _applicationBar;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -148,30 +152,97 @@ namespace one_click_video
 
         void GridTap(object sender, System.Windows.Input.GestureEventArgs args)
         {
-            NavigationService.Navigate(new Uri("/PlayPage.xaml?file=" + FilenameFromObject(sender), UriKind.Relative));
+            if (_choosing)
+            {
+                Rectangle rect = FindChild.Do<Rectangle>((Grid)sender, "active");
+                if (rect.Visibility == Visibility.Visible)
+                {
+                    rect.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    rect.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                NavigationService.Navigate(new Uri("/PlayPage.xaml?file=" + FilenameFromObject(sender), UriKind.Relative));
+            }
         }
 
-        private void BuildLocalizedApplicationBar()
+        private void BuildLocalizedApplicationBars()
         {
-            // ApplicationBar der Seite einer neuen Instanz von ApplicationBar zuweisen
-            ApplicationBar = new ApplicationBar();
-            ApplicationBar.BackgroundColor = Color.FromArgb(255, 0, 0, 0);
-            ApplicationBar.Opacity = .2;
-
             string theme = "Light/";
             if ((Visibility)App.Current.Resources["PhoneDarkThemeVisibility"] == Visibility.Visible)
             {
                 theme = "Dark/";
             }
 
-            // Eine neue Schaltfläche erstellen und als Text die lokalisierte Zeichenfolge aus AppResources zuweisen.
-            ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/" + theme + "appbar.manage.rest.png", UriKind.Relative));
-            appBarButton.Text = "Auswählen";
-            ApplicationBar.Buttons.Add(appBarButton);
+            //_applicationBar
+            {
+                // ApplicationBar der Seite einer neuen Instanz von ApplicationBar zuweisen
+                _applicationBar = new ApplicationBar();
+                _applicationBar.BackgroundColor = Color.FromArgb(255, 0, 0, 0);
+                _applicationBar.Opacity = .2;
 
-            // Ein neues Menüelement mit der lokalisierten Zeichenfolge aus AppResources erstellen
-            //ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-            //ApplicationBar.MenuItems.Add(appBarMenuItem);
+                // Eine neue Schaltfläche erstellen und als Text die lokalisierte Zeichenfolge aus AppResources zuweisen.
+                ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/" + theme + "appbar.manage.rest.png", UriKind.Relative));
+                appBarButton.Text = "Auswählen";
+                appBarButton.Click += appBarButton_Click;
+                _applicationBar.Buttons.Add(appBarButton);
+            }
+
+            //_choosingApplicationBar
+            {
+                _choosingApplicationBar = new ApplicationBar();
+                _choosingApplicationBar.BackgroundColor = Color.FromArgb(255, 0, 0, 0);
+                _choosingApplicationBar.Opacity = .2;
+
+                ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/" + theme + "appbar.manage.rest.png", UriKind.Relative));
+                appBarButton.Text = "Auswählen beenden";
+                appBarButton.Click += appBarButton_Click_Choosing;
+                _choosingApplicationBar.Buttons.Add(appBarButton);
+
+                appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/" + theme + "delete.png", UriKind.Relative));
+                appBarButton.Text = "Löschen";
+                _choosingApplicationBar.Buttons.Add(appBarButton);
+
+                ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem("Alles Makieren");
+                appBarMenuItem.Click += appBarMenuItem_Click;
+                _choosingApplicationBar.MenuItems.Add(appBarMenuItem);
+            }
+        }
+
+        void appBarMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var item in this.PictureGrid.Items)
+            {
+                FindChild.Do<Rectangle>(this.PictureGrid.ItemContainerGenerator.ContainerFromItem(item), "active").Visibility = Visibility.Visible;
+            }
+        }
+
+        void appBarButton_Click_Choosing(object sender, EventArgs e)
+        {
+            foreach (var item in this.PictureGrid.Items)
+            {
+                var container = this.PictureGrid.ItemContainerGenerator.ContainerFromItem(item);
+                FindChild.Do<Rectangle>(container, "active").Visibility = Visibility.Collapsed;
+                FindChild.Do<Rectangle>(container, "inactive").Visibility = Visibility.Collapsed;
+            }
+
+            _choosing = false;
+            ApplicationBar = _applicationBar;
+        }
+
+        void appBarButton_Click(object sender, EventArgs e)
+        {
+            foreach (var item in this.PictureGrid.Items)
+            {
+                FindChild.Do<Rectangle>(this.PictureGrid.ItemContainerGenerator.ContainerFromItem(item), "inactive").Visibility = Visibility.Visible;
+            }
+
+            _choosing = true;
+            ApplicationBar = _choosingApplicationBar;
         }
     }
 }

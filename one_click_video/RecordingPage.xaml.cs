@@ -33,8 +33,6 @@ namespace one_click_video
             InitializeComponent();
 
             AnimationContext = LayoutRoot;
-
-            OrientationChanged += RecordingPage_OrientationChanged;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -96,25 +94,6 @@ namespace one_click_video
             }
         }
 
-        private void RecordingPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
-        {
-            if (_videoBrush != null)
-            {
-                if (this.Orientation == PageOrientation.LandscapeLeft)
-                {
-                    _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 - _dev.SensorRotationInDegrees };
-                }
-                else if (this.Orientation == PageOrientation.LandscapeRight)
-                {
-                    _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = 90 + _dev.SensorRotationInDegrees };
-                }
-                else if (this.Orientation == PageOrientation.PortraitUp)
-                {
-                    _videoBrush.RelativeTransform = new RotateTransform() { CenterX = 0.5, CenterY = 0.5, Angle = _dev.SensorRotationInDegrees };
-                }
-            }
-        }
-
         async void ActivateCamera()
         {
             if (_dev == null)
@@ -127,7 +106,6 @@ namespace one_click_video
 
                     _videoBrush = new VideoBrush();
                     _videoBrush.SetSource(_dev);
-                    RecordingPage_OrientationChanged(null, null);
                     this.videoRect.Fill = _videoBrush;
 
                     lastVideo = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
