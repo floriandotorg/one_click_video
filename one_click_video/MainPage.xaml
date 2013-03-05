@@ -39,7 +39,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Height="100" Width="100" Tap="GridTap" >
+                    <Grid Height="100" Width="100" Tap="GridTap" x:Name="ListBoxGrid" >
                         <Grid.Resources>
                             <local:ImageMetadata x:Key="Metadata" Data="{Binding}" />
                         </Grid.Resources>

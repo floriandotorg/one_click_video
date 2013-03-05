@@ -100,11 +100,11 @@ namespace one_click_video
             }
             else
             {
-                CreateThumbnails();
+                createThumbnails();
             }
         }
 
-        private async void CreateThumbnails()
+        private async void createThumbnails()
         {
             var fileList = new List<string>();
 
@@ -205,12 +205,36 @@ namespace one_click_video
 
                 appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/" + theme + "delete.png", UriKind.Relative));
                 appBarButton.Text = "Löschen";
+                appBarButton.Click += appBarButtonDelete_Click;
                 _choosingApplicationBar.Buttons.Add(appBarButton);
 
                 ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem("Alles Makieren");
                 appBarMenuItem.Click += appBarMenuItem_Click;
                 _choosingApplicationBar.MenuItems.Add(appBarMenuItem);
             }
+        }
+
+        void appBarButtonDelete_Click(object sender, EventArgs e)
+        {
+            using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                foreach (var item in this.PictureGrid.Items)
+                {
+                    var container = this.PictureGrid.ItemContainerGenerator.ContainerFromItem(item);
+
+                    if (FindChild.Do<Rectangle>(container, "active").Visibility == Visibility.Visible)
+                    {
+                        Grid grid = FindChild.Do<Grid>(container, "ListBoxGrid");
+
+                        string file = FilenameFromObject(grid);
+                        isoStore.DeleteFile(file + ".jpg");
+                        isoStore.DeleteFile(file + ".mp4");
+                    }
+                }
+            }
+
+            choosingOff();
+            createThumbnails();
         }
 
         void appBarMenuItem_Click(object sender, EventArgs e)
@@ -221,7 +245,18 @@ namespace one_click_video
             }
         }
 
-        void appBarButton_Click_Choosing(object sender, EventArgs e)
+        private void choosingOn()
+        {
+            foreach (var item in this.PictureGrid.Items)
+            {
+                FindChild.Do<Rectangle>(this.PictureGrid.ItemContainerGenerator.ContainerFromItem(item), "inactive").Visibility = Visibility.Visible;
+            }
+
+            _choosing = true;
+            ApplicationBar = _choosingApplicationBar;
+        }
+
+        private void choosingOff()
         {
             foreach (var item in this.PictureGrid.Items)
             {
@@ -234,15 +269,14 @@ namespace one_click_video
             ApplicationBar = _applicationBar;
         }
 
+        void appBarButton_Click_Choosing(object sender, EventArgs e)
+        {
+            choosingOff();
+        }
+
         void appBarButton_Click(object sender, EventArgs e)
         {
-            foreach (var item in this.PictureGrid.Items)
-            {
-                FindChild.Do<Rectangle>(this.PictureGrid.ItemContainerGenerator.ContainerFromItem(item), "inactive").Visibility = Visibility.Visible;
-            }
-
-            _choosing = true;
-            ApplicationBar = _choosingApplicationBar;
+            choosingOn();
         }
     }
 }
