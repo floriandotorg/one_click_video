@@ -91,8 +91,10 @@ namespace one_click_video
             }
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            TileUtil.UpdateTile();
+
             this.timer.Tap -= CameraButtons_ShutterKeyPressed;
             CameraButtons.ShutterKeyPressed -= CameraButtons_ShutterKeyPressed;
             
@@ -101,7 +103,7 @@ namespace one_click_video
                 StopCamera(false);
             }
 
-            base.OnNavigatedFrom(e);
+            base.OnNavigatingFrom(e);
         }
 
         protected override void OnOrientationChanged(OrientationChangedEventArgs e)

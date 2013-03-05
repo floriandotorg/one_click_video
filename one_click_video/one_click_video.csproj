@@ -112,6 +112,7 @@
     <Compile Include="TilePage.xaml.cs">
       <DependentUpon>TilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TileUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

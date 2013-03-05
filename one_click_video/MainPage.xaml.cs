@@ -132,6 +132,12 @@ namespace one_click_video
             }
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            TileUtil.UpdateTile();
+            base.OnNavigatingFrom(e);
+        }
+
         private async void createThumbnails()
         {
             var fileList = new List<string>();
