@@ -16,6 +16,7 @@ using Windows.Foundation;
 using WP7Contrib.View.Transitions.Animation;
 using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
+using System.IO;
 
 namespace one_click_video
 {
@@ -54,12 +55,27 @@ namespace one_click_video
 
         void CameraButtons_ShutterKeyPressed(object sender, EventArgs e)
         {
-            _dt.Stop();
-
-            StopCamera();
+            StopCamera(true);
         }
 
-        async void StopCamera()
+        private void StopCamera(bool play)
+        {
+            _dt.Stop();
+
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                using (StreamWriter writeFile = new StreamWriter(new IsolatedStorageFileStream(lastVideo + ".metadata", FileMode.Create, FileAccess.Write, storage)))
+                {
+                    TimeSpan duration = DateTime.Now - _recStartTime + TimeSpan.FromSeconds(1);
+                    writeFile.WriteLine(duration.TotalSeconds.ToString());
+                    writeFile.Close();
+                }
+            }
+
+            AsyncStopCamera(play);
+        }
+
+        async void AsyncStopCamera(bool play)
         {
             await _dev.StopRecordingAsync();
             _dev.Dispose();
@@ -69,7 +85,10 @@ namespace one_click_video
             _sst.Dispose();
             _sst = null;
 
-            NavigationService.Navigate(new Uri("/PlayPage.xaml?file=" + lastVideo, UriKind.Relative));
+            if (play)
+            {
+                NavigationService.Navigate(new Uri("/PlayPage.xaml?file=" + lastVideo, UriKind.Relative));
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -79,8 +98,7 @@ namespace one_click_video
             
             if (_dev != null)
             {
-                _dev.Dispose();
-                _dev = null;
+                StopCamera(false);
             }
 
             base.OnNavigatedFrom(e);

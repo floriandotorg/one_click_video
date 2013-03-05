@@ -27,6 +27,7 @@ using System.Windows.Media.Imaging;
 using System.Globalization;
 using System.IO.IsolatedStorage;
 using utility;
+using System.IO;
 
 namespace one_click_video
 {
@@ -57,6 +58,33 @@ namespace one_click_video
                     }
                 }
                 return image;
+            }
+            return DependencyProperty.UnsetValue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
+    public class DurationConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null)
+            {
+                using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    string filename = System.IO.Path.GetFileNameWithoutExtension((string)value) + ".metadata";
+
+                    using (StreamReader reader = new StreamReader(isoStore.OpenFile(filename, FileMode.Open, FileAccess.Read)))
+                    {
+                        double totalSeconds = 0;
+                        Double.TryParse(reader.ReadLine(), out totalSeconds);
+                        return TimeSpan.FromSeconds(totalSeconds).ToString(@"m\:ss");
+                    }
+                }
             }
             return DependencyProperty.UnsetValue;
         }
@@ -229,6 +257,7 @@ namespace one_click_video
                         string file = FilenameFromObject(grid);
                         isoStore.DeleteFile(file + ".jpg");
                         isoStore.DeleteFile(file + ".mp4");
+                        isoStore.DeleteFile(file + ".metadata");
                     }
                 }
             }

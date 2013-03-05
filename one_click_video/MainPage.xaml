@@ -19,6 +19,7 @@
 
     <animation:AnimatedBasePage.Resources>
         <local:ThumbnailConverter x:Key="thum" />
+        <local:DurationConverter x:Key="dura" />
     </animation:AnimatedBasePage.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -55,7 +56,7 @@
                 				<SolidColorBrush Color="White" Opacity="1"/>
                 			</Path.Fill>
                 		</Path>
-                		<TextBlock HorizontalAlignment="Left" Height="25" Margin="61,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="37" Foreground="White" FontFamily="Segoe WP" FontSize="17.333" Text="0:00" TextAlignment="Right"/>
+                        <TextBlock HorizontalAlignment="Left" Height="25" Margin="61,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="37" Foreground="White" FontFamily="Segoe WP" FontSize="17.333" Text="{Binding Converter={StaticResource dura}}" TextAlignment="Right"/>
                 		<Rectangle x:Name="inactive" HorizontalAlignment="Left" Height="100" Stroke="#FF9B9B9B" VerticalAlignment="Top" Width="100" Visibility="Collapsed" StrokeThickness="3"/>
                         <Rectangle x:Name="active" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="5" Visibility="Collapsed"/>
                 	</Grid>
