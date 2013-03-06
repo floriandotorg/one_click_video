@@ -28,6 +28,7 @@ using System.Globalization;
 using System.IO.IsolatedStorage;
 using utility;
 using System.IO;
+using one_click_video.Resources;
 
 namespace one_click_video
 {
@@ -221,7 +222,7 @@ namespace one_click_video
 
                 // Eine neue Schaltfläche erstellen und als Text die lokalisierte Zeichenfolge aus AppResources zuweisen.
                 ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/" + theme + "appbar.manage.rest.png", UriKind.Relative));
-                appBarButton.Text = "Auswählen";
+                appBarButton.Text = AppResources.Select;
                 appBarButton.Click += appBarButton_Click;
                 _applicationBar.Buttons.Add(appBarButton);
             }
@@ -233,16 +234,16 @@ namespace one_click_video
                 _choosingApplicationBar.Opacity = .2;
 
                 ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/" + theme + "appbar.manage.rest.png", UriKind.Relative));
-                appBarButton.Text = "Auswählen beenden";
+                appBarButton.Text = AppResources.SelectEnd;
                 appBarButton.Click += appBarButton_Click_Choosing;
                 _choosingApplicationBar.Buttons.Add(appBarButton);
 
                 appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/" + theme + "delete.png", UriKind.Relative));
-                appBarButton.Text = "Löschen";
+                appBarButton.Text = AppResources.Delete;
                 appBarButton.Click += appBarButtonDelete_Click;
                 _choosingApplicationBar.Buttons.Add(appBarButton);
 
-                ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem("Alles Makieren");
+                ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.SelectAll);
                 appBarMenuItem.Click += appBarMenuItem_Click;
                 _choosingApplicationBar.MenuItems.Add(appBarMenuItem);
             }

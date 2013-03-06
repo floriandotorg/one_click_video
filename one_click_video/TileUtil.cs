@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Phone.Shell;
 using System.IO.IsolatedStorage;
+using one_click_video.Resources;
 
 namespace one_click_video
 {
@@ -43,7 +44,7 @@ namespace one_click_video
 
             CycleTileData tileData = new CycleTileData();
 
-            tileData.Title = "Aufnahmen";
+            tileData.Title = AppResources.Videos;
             tileData.SmallBackgroundImage = new Uri("Assets/Tiles/FlipCycleTileSmall.png", UriKind.Relative);
 
 

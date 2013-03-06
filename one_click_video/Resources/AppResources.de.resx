@@ -120,6 +120,12 @@
   <data name="ApplicationTitle" xml:space="preserve">
     <value>1-Click Video</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Recordings" xml:space="preserve">
+    <value>Aufnahmen</value>
+  </data>
   <data name="ResourceFlowDirection" xml:space="preserve">
     <value>LeftToRight</value>
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
@@ -127,5 +133,17 @@
   <data name="ResourceLanguage" xml:space="preserve">
     <value>de</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Auswählen</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Alle markieren</value>
+  </data>
+  <data name="SelectEnd" xml:space="preserve">
+    <value>Auswählen beenden</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videos</value>
   </data>
 </root>
