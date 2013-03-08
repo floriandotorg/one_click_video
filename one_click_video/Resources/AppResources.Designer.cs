@@ -70,11 +70,38 @@ namespace one_click_video.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die contact support ähnelt.
+        /// </summary>
+        public static string ContactSupport {
+            get {
+                return ResourceManager.GetString("ContactSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Delete ähnelt.
         /// </summary>
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Info ähnelt.
+        /// </summary>
+        public static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die rate and review ähnelt.
+        /// </summary>
+        public static string RateReview {
+            get {
+                return ResourceManager.GetString("RateReview", resourceCulture);
             }
         }
         
@@ -106,6 +133,15 @@ namespace one_click_video.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die If you like this app, please consider to rate and review. ähnelt.
+        /// </summary>
+        public static string Review {
+            get {
+                return ResourceManager.GetString("Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Select ähnelt.
         /// </summary>
         public static string Select {
@@ -129,6 +165,34 @@ namespace one_click_video.Resources {
         public static string SelectEnd {
             get {
                 return ResourceManager.GetString("SelectEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You have questions or comments?
+        ///Contact us, we&apos;d love to get your feedback. ähnelt.
+        /// </summary>
+        public static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die support.video@floyd-ug.de ähnelt.
+        /// </summary>
+        public static string SupportMail {
+            get {
+                return ResourceManager.GetString("SupportMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Version ähnelt.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

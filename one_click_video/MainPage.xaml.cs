@@ -199,6 +199,10 @@ namespace one_click_video
                 appBarButton.Text = AppResources.Select;
                 appBarButton.Click += appBarButton_Click;
                 _applicationBar.Buttons.Add(appBarButton);
+
+                ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.Info);
+                appBarMenuItem.Click += appBarMenuItem_InfoClick;
+                _applicationBar.MenuItems.Add(appBarMenuItem);
             }
 
             //_choosingApplicationBar
@@ -221,6 +225,11 @@ namespace one_click_video
                 appBarMenuItem.Click += appBarMenuItem_Click;
                 _choosingApplicationBar.MenuItems.Add(appBarMenuItem);
             }
+        }
+
+        void appBarMenuItem_InfoClick(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/InfoPage.xaml", UriKind.Relative));
         }
 
         void appBarButtonDelete_Click(object sender, EventArgs e)

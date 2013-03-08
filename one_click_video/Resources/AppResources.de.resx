@@ -120,8 +120,17 @@
   <data name="ApplicationTitle" xml:space="preserve">
     <value>1-Click Video</value>
   </data>
+  <data name="ContactSupport" xml:space="preserve">
+    <value>support</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Löschen</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="RateReview" xml:space="preserve">
+    <value>bewerten</value>
   </data>
   <data name="Recordings" xml:space="preserve">
     <value>Aufnahmen</value>
@@ -134,6 +143,10 @@
     <value>de</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
+  <data name="Review" xml:space="preserve">
+    <value>
+Gefällt Ihnen unsere App?</value>
+  </data>
   <data name="Select" xml:space="preserve">
     <value>Auswählen</value>
   </data>
@@ -142,6 +155,15 @@
   </data>
   <data name="SelectEnd" xml:space="preserve">
     <value>Auswählen beenden</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Sie haben eine Frage, eine Anregung, oder möchten uns Ihre Meinung mitteilen?</value>
+  </data>
+  <data name="SupportMail" xml:space="preserve">
+    <value>support.video@floyd-ug.de</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Videos</value>
