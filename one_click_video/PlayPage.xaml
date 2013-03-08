@@ -9,9 +9,8 @@
 	xmlns:animation="clr-namespace:WP7Contrib.View.Transitions.Animation;assembly=WP7Contrib.View.Transitions"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
 	FontSize="{StaticResource PhoneFontSizeNormal}"
-	Foreground="{StaticResource PhoneForegroundBrush}"
 	SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-	mc:Ignorable="d">
+	mc:Ignorable="d" Foreground="Black" BorderBrush="Black" Background="Black">
 	<animation:AnimatedBasePage.Resources>
 		<Storyboard x:Name="controls_out">
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="controls">
@@ -108,7 +107,7 @@
 	</animation:AnimatedBasePage.Resources>
 
 	<!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
-	<Grid x:Name="LayoutRoot" Background="Transparent">
+	<Grid x:Name="LayoutRoot" Background="Black">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
@@ -118,7 +117,7 @@
 		<Grid x:Name="controls" Margin="0,0,0,-30" Grid.RowSpan="2">
 			<Rectangle Height="166" Margin="0,0,0,30" VerticalAlignment="Bottom" Opacity="0.5" Fill="Black" Stroke="Black"/>
 			<Slider x:Name="timeline" Margin="20,0,20,20" VerticalAlignment="Bottom" Maximum="1" LargeChange="0.1" SmallChange="0.01" Height="100" ManipulationCompleted="timeline_ManipulationCompleted" ManipulationStarted="timeline_ManipulationStarted" Style="{StaticResource SliderPlayer}" />
-			<TextBlock x:Name="timer" HorizontalAlignment="Left" Height="30" Margin="31,0,0,39" TextWrapping="Wrap" Text="0:00 / 0:00" VerticalAlignment="Bottom" Width="173"/>
+			<TextBlock x:Name="timer" HorizontalAlignment="Left" Height="30" Margin="31,0,0,39" TextWrapping="Wrap" Text="0:00 / 0:00" VerticalAlignment="Bottom" Width="173" Foreground="White"/>
 			<Grid Margin="0,324,0,96" Width="90" Height="90" VerticalAlignment="Bottom" HorizontalAlignment="Center">
 				<Ellipse x:Name="elli" HorizontalAlignment="Left" Height="66" Stroke="White" VerticalAlignment="Top" Width="66" StrokeThickness="3" Fill="#00000000" Margin="12,12,0,0"/>
 				<Path x:Name="play"
