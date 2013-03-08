@@ -95,7 +95,7 @@ namespace one_click_video
         {
             TileUtil.UpdateTile();
 
-            this.timer.Tap -= CameraButtons_ShutterKeyPressed;
+            this.timerButton.Tap -= CameraButtons_ShutterKeyPressed;
             CameraButtons.ShutterKeyPressed -= CameraButtons_ShutterKeyPressed;
             
             if (_dev != null)
@@ -154,7 +154,7 @@ namespace one_click_video
                     dt_Tick(null, null);
                     _dt.Start();
 
-                    this.timer.Tap += CameraButtons_ShutterKeyPressed;
+                    this.timerButton.Tap += CameraButtons_ShutterKeyPressed;
                     CameraButtons.ShutterKeyPressed += CameraButtons_ShutterKeyPressed;
                 }
             }
