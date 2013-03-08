@@ -44,56 +44,11 @@ namespace one_click_video
             DependencyProperty.Register("Data", typeof(string), typeof(ImageMetadata), new PropertyMetadata(""));
     }
 
-    public class ThumbnailConverter : IValueConverter
+    public class ListBoxVideoItem
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value != null)
-            {
-                var image = new BitmapImage();
-                using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
-                {
-                    using (var file = isoStore.OpenFile((string)value, System.IO.FileMode.Open, System.IO.FileAccess.Read))
-                    {
-                        image.SetSource(file);
-                    }
-                }
-                return image;
-            }
-            return DependencyProperty.UnsetValue;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
-    public class DurationConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value != null)
-            {
-                using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
-                {
-                    string filename = System.IO.Path.GetFileNameWithoutExtension((string)value) + ".metadata";
-
-                    using (StreamReader reader = new StreamReader(isoStore.OpenFile(filename, FileMode.Open, FileAccess.Read)))
-                    {
-                        double totalSeconds = 0;
-                        Double.TryParse(reader.ReadLine(), out totalSeconds);
-                        return TimeSpan.FromSeconds(totalSeconds).ToString(@"m\:ss");
-                    }
-                }
-            }
-            return DependencyProperty.UnsetValue;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new System.NotImplementedException();
-        }
+        public string File { get; set; }
+        public BitmapImage Thumbnail { get; set; }
+        public string Duration { get; set; }
     }
 
     public partial class MainPage : AnimatedBasePage
@@ -139,15 +94,34 @@ namespace one_click_video
             base.OnNavigatingFrom(e);
         }
 
-        private async void createThumbnails()
+        private void createThumbnails()
         {
-            var fileList = new List<string>();
+            var fileList = new List<ListBoxVideoItem>();
 
-            foreach (var file in await ApplicationData.Current.LocalFolder.GetFilesAsync())
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                if (file.Name.EndsWith(".jpg"))
+                foreach (var file in storage.GetFileNames())
                 {
-                    fileList.Add(file.Name);
+                    if (file.EndsWith(".mp4"))
+                    {
+                        string rawFilename = System.IO.Path.GetFileNameWithoutExtension(file);
+
+                        var item = new ListBoxVideoItem() { File = rawFilename, Thumbnail = new BitmapImage() };
+
+                        using (StreamReader reader = new StreamReader(storage.OpenFile(rawFilename + ".metadata", FileMode.Open, FileAccess.Read)))
+                        {
+                            double totalSeconds = 0;
+                            Double.TryParse(reader.ReadLine(), out totalSeconds);
+                            item.Duration = TimeSpan.FromSeconds(totalSeconds).ToString(@"m\:ss");
+                        }
+
+                        using (var imageFile = storage.OpenFile(rawFilename + ".jpg", System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                        {
+                            item.Thumbnail.SetSource(imageFile);
+                        }
+
+                        fileList.Add(item);
+                    }
                 }
             }
 
@@ -182,7 +156,7 @@ namespace one_click_video
 
         private string FilenameFromObject(object sender)
         {
-            return System.IO.Path.GetFileNameWithoutExtension((((Grid)sender).Resources["Metadata"] as ImageMetadata).Data);
+            return (((Grid)sender).Resources["Metadata"] as ImageMetadata).Data;
         }
 
         void GridTap(object sender, System.Windows.Input.GestureEventArgs args)
