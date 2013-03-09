@@ -62,6 +62,17 @@ namespace one_click_video
         {
             _dt.Stop();
 
+            //////////Thumbnail
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                using (var file = storage.CreateFile(lastVideo + ".jpg"))
+                {
+                    WriteableBitmap bmap = new WriteableBitmap((int)_dev.PreviewResolution.Width, (int)_dev.PreviewResolution.Height);
+                    _dev.GetPreviewBufferArgb(bmap.Pixels);
+                    bmap.SaveJpeg(file, bmap.PixelWidth, bmap.PixelHeight, 0, 90);
+                }
+            }
+
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 using (StreamWriter writeFile = new StreamWriter(new IsolatedStorageFileStream(lastVideo + ".metadata", FileMode.Create, FileAccess.Write, storage)))
@@ -129,17 +140,6 @@ namespace one_click_video
                     this.videoRect.Fill = _videoBrush;
 
                     lastVideo = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-
-                    //////////Thumbnail
-                    using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
-                    {
-                        using (var file = storage.CreateFile(lastVideo + ".jpg"))
-                        {
-                            WriteableBitmap bmap = new WriteableBitmap((int)_dev.PreviewResolution.Width, (int)_dev.PreviewResolution.Height);
-                            _dev.GetPreviewBufferArgb(bmap.Pixels);
-                            bmap.SaveJpeg(file, bmap.PixelWidth, bmap.PixelHeight, 0, 90);
-                        }
-                    }
 
                     ///////////Video
                     StorageFolder localFolder = ApplicationData.Current.LocalFolder;
