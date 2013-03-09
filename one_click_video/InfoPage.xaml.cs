@@ -14,6 +14,7 @@ using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Info;
 using WP7Contrib.View.Transitions.Animation;
 using System.Reflection;
+using System.Windows.Media.Imaging;
 
 namespace one_click_video
 {
@@ -32,6 +33,11 @@ namespace one_click_video
             version_str = versionAttrib.Version.ToString().Substring(0, 3);
 
             this.version_text.Text = this.version_text.Text.Replace("0.0.0.0", version_str);
+
+            if ((Visibility)App.Current.Resources["PhoneDarkThemeVisibility"] != Visibility.Visible)
+            {
+                this.floydLogo.Source = new BitmapImage(new Uri("floyd_light.png", UriKind.Relative));
+            }
         }
 
         private void rate_click(object sender, System.Windows.RoutedEventArgs e)
@@ -52,8 +58,8 @@ namespace one_click_video
                 result = deviceName.ToString(); 
             }
 
-            emailComposeTask.Subject = "The Flashlight Version " + version_str + " on " + result;
-            emailComposeTask.To = "support.flashlight@floyd-ug.de";
+            emailComposeTask.Subject = AppResources.app_name + " Version " + version_str + " on " + result;
+            emailComposeTask.To = "support.video@floyd-ug.de";
 
             emailComposeTask.Show();
         }
