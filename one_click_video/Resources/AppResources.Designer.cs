@@ -97,6 +97,15 @@ namespace one_click_video.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die play ähnelt.
+        /// </summary>
+        public static string PlayButton {
+            get {
+                return ResourceManager.GetString("PlayButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die rate and review ähnelt.
         /// </summary>
         public static string RateReview {
@@ -184,6 +193,25 @@ namespace one_click_video.Resources {
         public static string SupportMail {
             get {
                 return ResourceManager.GetString("SupportMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Video length limited to
+        ///10 seconds ähnelt.
+        /// </summary>
+        public static string TrialText {
+            get {
+                return ResourceManager.GetString("TrialText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Trial Version ähnelt.
+        /// </summary>
+        public static string TrialVersion {
+            get {
+                return ResourceManager.GetString("TrialVersion", resourceCulture);
             }
         }
         

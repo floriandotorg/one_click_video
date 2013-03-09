@@ -129,6 +129,9 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="PlayButton" xml:space="preserve">
+    <value>play</value>
+  </data>
   <data name="RateReview" xml:space="preserve">
     <value>rate and review</value>
   </data>
@@ -161,6 +164,13 @@ Contact us, we'd love to get your feedback.</value>
   </data>
   <data name="SupportMail" xml:space="preserve">
     <value>support.video@floyd-ug.de</value>
+  </data>
+  <data name="TrialText" xml:space="preserve">
+    <value>Video length limited to
+10 seconds</value>
+  </data>
+  <data name="TrialVersion" xml:space="preserve">
+    <value>Trial Version</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>

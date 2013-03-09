@@ -17,6 +17,7 @@ using WP7Contrib.View.Transitions.Animation;
 using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
 using System.IO;
+using Microsoft.Phone.Marketplace;
 
 namespace one_click_video
 {
@@ -28,6 +29,7 @@ namespace one_click_video
         private System.Windows.Threading.DispatcherTimer _dt;
         private DateTime _recStartTime;
         private string lastVideo;
+        private bool _trial = new LicenseInformation().IsTrial();
 
         public RecordingPage()
         {
@@ -38,6 +40,8 @@ namespace one_click_video
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            this.trial.Visibility = Visibility.Collapsed;
+
             base.OnNavigatedTo(e);
 
             _dt = new System.Windows.Threading.DispatcherTimer();
@@ -51,6 +55,12 @@ namespace one_click_video
         {
             TimeSpan duration = DateTime.Now - _recStartTime + TimeSpan.FromSeconds(1);
             this.RecTimer.Text = duration.ToString(@"mm\:ss");
+
+            if (_trial && duration.TotalSeconds >= 10)
+            {
+                StopCamera(false);
+                this.trialFadeIn.Begin();
+            }
         }
 
         void CameraButtons_ShutterKeyPressed(object sender, EventArgs e)
@@ -58,11 +68,15 @@ namespace one_click_video
             StopCamera(true);
         }
 
+        private void trailPlayClicked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/PlayPage.xaml?file=" + lastVideo, UriKind.Relative));
+        }
+
         private void StopCamera(bool play)
         {
             _dt.Stop();
 
-            //////////Thumbnail
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 using (var file = storage.CreateFile(lastVideo + ".jpg"))
@@ -71,10 +85,7 @@ namespace one_click_video
                     _dev.GetPreviewBufferArgb(bmap.Pixels);
                     bmap.SaveJpeg(file, bmap.PixelWidth, bmap.PixelHeight, 0, 90);
                 }
-            }
 
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
-            {
                 using (StreamWriter writeFile = new StreamWriter(new IsolatedStorageFileStream(lastVideo + ".metadata", FileMode.Create, FileAccess.Write, storage)))
                 {
                     TimeSpan duration = DateTime.Now - _recStartTime + TimeSpan.FromSeconds(1);

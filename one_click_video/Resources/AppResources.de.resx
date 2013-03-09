@@ -129,6 +129,9 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="PlayButton" xml:space="preserve">
+    <value>abspielen</value>
+  </data>
   <data name="RateReview" xml:space="preserve">
     <value>bewerten</value>
   </data>
@@ -161,6 +164,13 @@ Gefällt Ihnen unsere App?</value>
   </data>
   <data name="SupportMail" xml:space="preserve">
     <value>support.video@floyd-ug.de</value>
+  </data>
+  <data name="TrailVersion" xml:space="preserve">
+    <value>Test-Version</value>
+  </data>
+  <data name="TrialText" xml:space="preserve">
+    <value>Videolänge beschränkt auf
+10 Sekunden</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
