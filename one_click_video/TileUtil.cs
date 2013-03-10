@@ -71,6 +71,11 @@ namespace one_click_video
                     fileList.Add(new Uri("isostore:/shared/ShellContent/img_" + count + ".jpg", UriKind.Absolute));
                 }
 
+                if (fileList.Count == 0)
+                {
+                    fileList.Add(new Uri("Assets/Tiles/FlipCycleTileMedium.png", UriKind.Relative));
+                }
+
                 tileData.CycleImages = fileList;
             }
 

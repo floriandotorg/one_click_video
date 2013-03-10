@@ -165,12 +165,12 @@ Gefällt Ihnen unsere App?</value>
   <data name="SupportMail" xml:space="preserve">
     <value>support.video@floyd-ug.de</value>
   </data>
-  <data name="TrailVersion" xml:space="preserve">
-    <value>Test-Version</value>
-  </data>
   <data name="TrialText" xml:space="preserve">
     <value>Videolänge beschränkt auf
 10 Sekunden</value>
+  </data>
+  <data name="TrialVersion" xml:space="preserve">
+    <value>Test-Version</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>

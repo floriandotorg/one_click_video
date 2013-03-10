@@ -40,11 +40,11 @@
             <Rectangle x:Name="RecIconStarting" HorizontalAlignment="Right" Height="10" Margin="0,0,13,15" VerticalAlignment="Bottom" Width="10" Fill="#FF7F7F7F" Stroke="#FF7F7F7F"/>
         </Grid>
         <Rectangle x:Name="timerButton" HorizontalAlignment="Left" Height="60" Margin="685,415,0,0" VerticalAlignment="Top" Width="112" Fill="Transparent" Stroke="Transparent"/>
-        <Grid x:Name="trial" Margin="200,121,200,176" Height="265" Width="360">
-        	<Rectangle Fill="Black" Stroke="Black" Width="360" Height="265" RadiusX="5" RadiusY="5" Opacity="0.8" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Button Content="{Binding Path=LocalizedResources.PlayButton, Source={StaticResource LocalizedStrings}}" Height="75" Margin="0,175,0,0" VerticalAlignment="Top" Width="180" Click="trailPlayClicked" HorizontalAlignment="Center"/>
-            <TextBlock HorizontalAlignment="Left" Height="35" Margin="0,13,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.TrialVersion, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" Width="360" TextAlignment="Center" FontWeight="Bold"/>
-            <TextBlock Height="60" Margin="50,85,50,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=LocalizedResources.TrialText, Source={StaticResource LocalizedStrings}}"/>
+        <Grid x:Name="trial" Margin="200,121,200,176" Height="265" Width="360" Visibility="Collapsed">
+        	<Rectangle Fill="Black" Stroke="Black" Width="360" Height="265" RadiusX="5" RadiusY="5" Opacity="0.9" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Button Content="{Binding Path=LocalizedResources.PlayButton, Source={StaticResource LocalizedStrings}}" Height="75" Margin="90,179,90,0" VerticalAlignment="Top" Width="180" Click="trailPlayClicked" HorizontalAlignment="Center" Foreground="#DEFFFFFF" BorderBrush="#DEFFFFFF"/>
+            <TextBlock HorizontalAlignment="Left" Height="35" Margin="0,15,0,0" TextWrapping="Wrap" Text="{Binding Path=LocalizedResources.TrialVersion, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" Width="360" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
+            <TextBlock Height="60" Margin="50,92,50,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=LocalizedResources.TrialText, Source={StaticResource LocalizedStrings}}" Foreground="White"/>
         </Grid>
     </Grid>
 

@@ -106,21 +106,28 @@ namespace one_click_video
                     {
                         string rawFilename = System.IO.Path.GetFileNameWithoutExtension(file);
 
-                        var item = new ListBoxVideoItem() { File = rawFilename, Thumbnail = new BitmapImage() };
-
-                        using (StreamReader reader = new StreamReader(storage.OpenFile(rawFilename + ".metadata", FileMode.Open, FileAccess.Read)))
+                        try
                         {
-                            double totalSeconds = 0;
-                            Double.TryParse(reader.ReadLine(), out totalSeconds);
-                            item.Duration = TimeSpan.FromSeconds(totalSeconds).ToString(@"m\:ss");
-                        }
+                            var item = new ListBoxVideoItem() { File = rawFilename, Thumbnail = new BitmapImage() };
 
-                        using (var imageFile = storage.OpenFile(rawFilename + ".jpg", System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                            using (StreamReader reader = new StreamReader(storage.OpenFile(rawFilename + ".metadata", FileMode.Open, FileAccess.Read)))
+                            {
+                                double totalSeconds = 0;
+                                Double.TryParse(reader.ReadLine(), out totalSeconds);
+                                item.Duration = TimeSpan.FromSeconds(totalSeconds).ToString(@"m\:ss");
+                            }
+
+                            using (var imageFile = storage.OpenFile(rawFilename + ".jpg", System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                            {
+                                item.Thumbnail.SetSource(imageFile);
+                            }
+
+                            fileList.Add(item);
+                        }
+                        catch
                         {
-                            item.Thumbnail.SetSource(imageFile);
+                            deleteFile(rawFilename, storage);
                         }
-
-                        fileList.Add(item);
                     }
                 }
             }
@@ -232,6 +239,13 @@ namespace one_click_video
             NavigationService.Navigate(new Uri("/InfoPage.xaml", UriKind.Relative));
         }
 
+        private void deleteFile(string rawFilename, IsolatedStorageFile storage)
+        {
+            storage.DeleteFile(rawFilename + ".jpg");
+            storage.DeleteFile(rawFilename + ".mp4");
+            storage.DeleteFile(rawFilename + ".metadata");
+        }
+
         void appBarButtonDelete_Click(object sender, EventArgs e)
         {
             using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
@@ -245,9 +259,7 @@ namespace one_click_video
                         Grid grid = FindChild.Do<Grid>(container, "ListBoxGrid");
 
                         string file = FilenameFromObject(grid);
-                        isoStore.DeleteFile(file + ".jpg");
-                        isoStore.DeleteFile(file + ".mp4");
-                        isoStore.DeleteFile(file + ".metadata");
+                        deleteFile(file, isoStore);
                     }
                 }
             }
