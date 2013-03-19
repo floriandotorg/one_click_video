@@ -21,12 +21,13 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Button Content="pin tile" Margin="141,604,141,0" Grid.Row="1" VerticalAlignment="Top" Width="198" Click="Button_Click_1"/>
-		<Grid Margin="133,156,133,0" Grid.RowSpan="2" Width="214" Height="224" MinWidth="214" MinHeight="224" MaxWidth="214" MaxHeight="224" HorizontalAlignment="Center" VerticalAlignment="Top">
+		<Button Content="pin tile" Margin="10,222,272,0" Grid.Row="1" VerticalAlignment="Top" Width="198" Click="Button_Click_1"/>
+		<Grid Margin="230,70,36,0" Grid.RowSpan="2" Width="214" Height="224" MinWidth="214" MinHeight="224" MaxWidth="214" MaxHeight="224" HorizontalAlignment="Center" VerticalAlignment="Top">
 			<Rectangle HorizontalAlignment="Left" Height="210" Margin="4,14,0,0" Stroke="{StaticResource PhoneAccentBrush}" VerticalAlignment="Top" Width="210" Fill="{StaticResource PhoneAccentBrush}"/>
 			<Image Margin="3,1,1,13" Source="/RecordingTileImageMedium.png" Stretch="Fill" Width="210" Height="210"/>
 			<TextBlock HorizontalAlignment="Left" Height="35" Margin="16,189,0,0" TextWrapping="Wrap" Text="1-Click Video" VerticalAlignment="Top" Width="155"/>
 		</Grid>
+		<Image Margin="35,355,220,38" Grid.RowSpan="2" Source="/TilepageScreenshot.png" Stretch="Fill" Width="225" Height="375" VerticalAlignment="Top"/>
 		<!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
 
 		<!--ContentPanel - zusätzliche Inhalte hier platzieren-->

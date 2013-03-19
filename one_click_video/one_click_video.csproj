@@ -24,6 +24,7 @@
     <ValidateXaml>true</ValidateXaml>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <ExpressionBlendVersion>5.0.31017.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -179,6 +180,7 @@
     <Content Include="RecordingTileImageLarge.png" />
     <Content Include="RecordingTileImageMedium.png" />
     <Content Include="RecordingTileImageSmall.png" />
+    <Content Include="TilepageScreenshot.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
