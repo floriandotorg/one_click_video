@@ -132,6 +132,9 @@ namespace one_click_video
                 }
             }
 
+            //fileList.Add(new ListBoxVideoItem() { File = "bla", Thumbnail = new BitmapImage(new Uri("screenshot_recimg.jpg", UriKind.Relative)), Duration = "1:13" });
+            //fileList.Add(new ListBoxVideoItem() { File = "bla", Thumbnail = new BitmapImage(new Uri("screenshot_recimg2.jpg", UriKind.Relative)), Duration = "0:22" });
+            
             this.PictureGrid.ItemsSource = fileList;
         }
 

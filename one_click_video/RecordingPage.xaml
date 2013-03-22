@@ -33,6 +33,7 @@
             <RowDefinition Height="562"/>
         </Grid.RowDefinitions>
         <Rectangle x:Name="videoRect" Margin="0,0,0,82" Stroke="Black" Fill="Black"/>
+        <!--<Image Margin="0,-60,-2,0" Source="screenshot_recimg.jpg" Stretch="Fill" Width="855" Height="570" HorizontalAlignment="Left" VerticalAlignment="Top"/>-->
         <Grid x:Name="timer" Margin="695,428,10,92">
             <Rectangle Fill="#7F000000" HorizontalAlignment="Right" Height="40" Stroke="#80FFFFFF" VerticalAlignment="Bottom" Width="90" RadiusX="5" RadiusY="5"/>
             <TextBlock x:Name="RecTimer" HorizontalAlignment="Right" Height="30" Margin="0,0,28,5" TextWrapping="Wrap" Text="--:--" VerticalAlignment="Bottom" Width="56" TextAlignment="Center" Foreground="White"/>
