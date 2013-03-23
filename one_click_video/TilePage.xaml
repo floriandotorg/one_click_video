@@ -13,21 +13,55 @@
 	Foreground="{StaticResource PhoneForegroundBrush}"
 	SupportedOrientations="Portrait" Orientation="Portrait"
 	mc:Ignorable="d"
-	shell:SystemTray.IsVisible="True">
+	shell:SystemTray.IsVisible="True" shell:SystemTray.BackgroundColor="Black" shell:SystemTray.ForegroundColor="BlanchedAlmond">
 	
 	<!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
-	<Grid x:Name="LayoutRoot" Background="Transparent">
+	<Grid x:Name="LayoutRoot" Background="Black">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Button Content="pin tile" Margin="10,222,272,0" Grid.Row="1" VerticalAlignment="Top" Width="198" Click="Button_Click_1"/>
-		<Grid Margin="230,70,36,0" Grid.RowSpan="2" Width="214" Height="224" MinWidth="214" MinHeight="224" MaxWidth="214" MaxHeight="224" HorizontalAlignment="Center" VerticalAlignment="Top">
+		<Button Content="pin tile" Margin="15,283,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" Click="Button_Click_1" HorizontalAlignment="Left" BorderBrush="White" Foreground="White"/>
+		<Grid Margin="245,30,0,0" Grid.RowSpan="2" Width="214" Height="224" MinWidth="214" MinHeight="224" MaxWidth="214" MaxHeight="224" HorizontalAlignment="Left" VerticalAlignment="Top">
 			<Rectangle HorizontalAlignment="Left" Height="210" Margin="4,14,0,0" Stroke="{StaticResource PhoneAccentBrush}" VerticalAlignment="Top" Width="210" Fill="{StaticResource PhoneAccentBrush}"/>
 			<Image Margin="3,1,1,13" Source="/RecordingTileImageMedium.png" Stretch="Fill" Width="210" Height="210"/>
-			<TextBlock HorizontalAlignment="Left" Height="35" Margin="16,189,0,0" TextWrapping="Wrap" Text="1-Click Video" VerticalAlignment="Top" Width="155"/>
+			<TextBlock HorizontalAlignment="Left" Height="35" Margin="16,189,0,0" TextWrapping="Wrap" Text="1-Click Video" VerticalAlignment="Top" Width="155" Foreground="#DEFFFFFF"/>
 		</Grid>
-		<Image Margin="35,355,220,38" Grid.RowSpan="2" Source="/TilepageScreenshot.png" Stretch="Fill" Width="225" Height="375" VerticalAlignment="Top"/>
+		<Grid Margin="15,393,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+			<Rectangle HorizontalAlignment="Left" Height="355" Margin="5,20,0,0" VerticalAlignment="Top" Width="215">
+				<Rectangle.Stroke>
+					<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+				</Rectangle.Stroke>
+				<Rectangle.Fill>
+					<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+				</Rectangle.Fill>
+			</Rectangle>
+			<Image Source="/TilepageScreenshot.png" Stretch="Fill" Width="225" Height="375" VerticalAlignment="Top"/>
+		</Grid>
+		<Grid Margin="295,275,110,284" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+			<Rectangle HorizontalAlignment="Left" Height="166" Margin="65,10,0,0" VerticalAlignment="Top" Width="10" Fill="White" Stroke="White"/>
+			<Rectangle HorizontalAlignment="Left" Height="113.415" Margin="14.476,132.156,0,-36.571" VerticalAlignment="Top" Width="10" Fill="White" Stroke="White" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+				<Rectangle.RenderTransform>
+					<CompositeTransform Rotation="72"/>
+				</Rectangle.RenderTransform>
+			</Rectangle>
+			<Grid Margin="-40.343,154.498,75.343,-41.498" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+				<Grid.RenderTransform>
+					<CompositeTransform Rotation="27"/>
+				</Grid.RenderTransform>
+				<Rectangle HorizontalAlignment="Left" Height="67" VerticalAlignment="Top" Width="10" Fill="White" Stroke="White"/>
+				<Rectangle HorizontalAlignment="Left" Height="67" Margin="30,28.5,0,0" VerticalAlignment="Top" Width="10" Fill="White" Stroke="White" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+					<Rectangle.RenderTransform>
+						<CompositeTransform Rotation="90"/>
+					</Rectangle.RenderTransform>
+				</Rectangle>
+			</Grid>
+		</Grid>
+		<TextBlock HorizontalAlignment="Left" Height="124" Margin="48,101,0,0" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="157" Foreground="White">
+			<Run Text="Tap Record-Tile"/>
+			<LineBreak/>
+			<Run Text="to start recording."/>
+		</TextBlock>
 		<!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
 
 		<!--ContentPanel - zusätzliche Inhalte hier platzieren-->
