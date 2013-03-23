@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using WP7Contrib.View.Transitions.Animation;
 using System.IO.IsolatedStorage;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace one_click_video
 {
@@ -124,6 +125,10 @@ namespace one_click_video
             }
 
             this.mediaElement.Play();
+
+            // Screenshots
+            //this.screenshotRect.Visibility = Visibility.Visible;
+            //this.screenshotRect.Fill = new ImageBrush() { Stretch = Stretch.UniformToFill, ImageSource = new BitmapImage(new Uri("screenshot_recimg2.jpg", UriKind.Relative)) };
 
             dt_Tick(null, null);
             _dt = new System.Windows.Threading.DispatcherTimer();

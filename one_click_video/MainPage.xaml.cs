@@ -134,6 +134,9 @@ namespace one_click_video
                     _dt.Interval = new TimeSpan(0, 0, 0, 1, 0);
                     _dt.Tick += dt_Tick;
                     _dt.Start();
+
+                    // Screenshots
+                    //this.videoRect.Fill = new ImageBrush() { Stretch = Stretch.UniformToFill, ImageSource = new BitmapImage(new Uri("screenshot_recimg.jpg", UriKind.Relative)) };
                 }));
         }
 
@@ -160,11 +163,6 @@ namespace one_click_video
         {
             string path = System.IO.Path.GetFileNameWithoutExtension(e.RelativePath);
             path = path.Remove(path.Length - 3, 3) + ".mp4";
-
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
-            {
-                storage.ListFiles();
-            }
 
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
