@@ -25,9 +25,8 @@
         <TemplateCycle>
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Title>Videos</Title>
-          <Photo01ImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</Photo01ImageURI>
-          <Photo02ImageURI IsRelative="true" IsResource="false">
-          </Photo02ImageURI>
+          <Photo01ImageURI IsRelative="true" IsResource="false">screenshot_recimg.jpg</Photo01ImageURI>
+          <Photo02ImageURI IsRelative="true" IsResource="false">screenshot_recimg2.jpg</Photo02ImageURI>
           <Photo03ImageURI IsRelative="true" IsResource="false">
           </Photo03ImageURI>
           <Photo04ImageURI IsRelative="true" IsResource="false">

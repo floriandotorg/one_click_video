@@ -73,7 +73,8 @@ namespace one_click_video
 
                 if (fileList.Count == 0)
                 {
-                    fileList.Add(new Uri("Assets/Tiles/FlipCycleTileMedium.png", UriKind.Relative));
+                    fileList.Add(new Uri("screenshot_recimg.jpg", UriKind.Relative));
+                    fileList.Add(new Uri("screenshot_recimg2.jpg", UriKind.Relative));
                 }
 
                 tileData.CycleImages = fileList;

@@ -180,6 +180,8 @@
     <Content Include="RecordingTileImageLarge.png" />
     <Content Include="RecordingTileImageMedium.png" />
     <Content Include="RecordingTileImageSmall.png" />
+    <Content Include="screenshot_recimg.jpg" />
+    <Content Include="screenshot_recimg2.jpg" />
     <Content Include="TilepageScreenshot.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
