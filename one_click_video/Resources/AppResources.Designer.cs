@@ -97,6 +97,15 @@ namespace one_click_video.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die pin record-tile ähnelt.
+        /// </summary>
+        public static string PinTile {
+            get {
+                return ResourceManager.GetString("PinTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die play ähnelt.
         /// </summary>
         public static string PlayButton {

@@ -7,7 +7,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:animation="clr-namespace:WP7Contrib.View.Transitions.Animation;assembly=WP7Contrib.View.Transitions"
+	xmlns:animation="clr-namespace:WP7Contrib.View.Transitions.Animation;assembly=WP7Contrib.View.Transitions"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
 	FontSize="{StaticResource PhoneFontSizeNormal}"
 	Foreground="{StaticResource PhoneForegroundBrush}"
@@ -21,13 +21,13 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Button Content="pin tile" Margin="15,283,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" Click="Button_Click_1" HorizontalAlignment="Left" BorderBrush="White" Foreground="White"/>
-		<Grid Margin="245,30,0,0" Grid.RowSpan="2" Width="214" Height="224" MinWidth="214" MinHeight="224" MaxWidth="214" MaxHeight="224" HorizontalAlignment="Left" VerticalAlignment="Top">
+		<Button Content="{Binding Path=LocalizedResources.PinTile, Source={StaticResource LocalizedStrings}}" Margin="10,0,0,12" Grid.Row="1" VerticalAlignment="Bottom" Width="460" Click="Button_Click_1" HorizontalAlignment="Left" BorderBrush="White" Foreground="White"/>
+		<Grid Margin="230,30,36,0" Grid.RowSpan="2" Width="214" Height="224" MinWidth="214" MinHeight="224" MaxWidth="214" MaxHeight="224" VerticalAlignment="Top">
 			<Rectangle HorizontalAlignment="Left" Height="210" Margin="4,14,0,0" Stroke="{StaticResource PhoneAccentBrush}" VerticalAlignment="Top" Width="210" Fill="{StaticResource PhoneAccentBrush}"/>
 			<Image Margin="3,1,1,13" Source="/RecordingTileImageMedium.png" Stretch="Fill" Width="210" Height="210"/>
 			<TextBlock HorizontalAlignment="Left" Height="35" Margin="16,189,0,0" TextWrapping="Wrap" Text="1-Click Video" VerticalAlignment="Top" Width="155" Foreground="#DEFFFFFF"/>
 		</Grid>
-		<Grid Margin="15,393,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+		<Grid Margin="-20,303,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
 			<Rectangle HorizontalAlignment="Left" Height="355" Margin="5,20,0,0" VerticalAlignment="Top" Width="215">
 				<Rectangle.Stroke>
 					<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
@@ -38,30 +38,10 @@
 			</Rectangle>
 			<Image Source="/TilepageScreenshot.png" Stretch="Fill" Width="225" Height="375" VerticalAlignment="Top"/>
 		</Grid>
-		<Grid Margin="295,275,110,284" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
-			<Rectangle HorizontalAlignment="Left" Height="166" Margin="65,10,0,0" VerticalAlignment="Top" Width="10" Fill="White" Stroke="White"/>
-			<Rectangle HorizontalAlignment="Left" Height="113.415" Margin="14.476,132.156,0,-36.571" VerticalAlignment="Top" Width="10" Fill="White" Stroke="White" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
-				<Rectangle.RenderTransform>
-					<CompositeTransform Rotation="72"/>
-				</Rectangle.RenderTransform>
-			</Rectangle>
-			<Grid Margin="-40.343,154.498,75.343,-41.498" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
-				<Grid.RenderTransform>
-					<CompositeTransform Rotation="27"/>
-				</Grid.RenderTransform>
-				<Rectangle HorizontalAlignment="Left" Height="67" VerticalAlignment="Top" Width="10" Fill="White" Stroke="White"/>
-				<Rectangle HorizontalAlignment="Left" Height="67" Margin="30,28.5,0,0" VerticalAlignment="Top" Width="10" Fill="White" Stroke="White" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
-					<Rectangle.RenderTransform>
-						<CompositeTransform Rotation="90"/>
-					</Rectangle.RenderTransform>
-				</Rectangle>
-			</Grid>
+		<Grid Margin="180,275,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="265" Width="264">
+			<Path Data="M185.003,4.00019 C185.004,20.1306 190.003,64.0015 160.002,94.0023 C131.717,122.286 52.1822,124.001 39.9975,124.001" HorizontalAlignment="Left" Height="129.998" Margin="35,0,0,0" Stretch="Fill" Stroke="White" StrokeThickness="10" UseLayoutRounding="False" VerticalAlignment="Top" Width="155.313" StrokeStartLineCap="Round" StrokeDashCap="Round"/>
+			<Path Data="M70.4688,165.742 C70.4688,165.742 0.123121,198.65 0.14041,212.132 C0.155344,223.777 70.4688,248.153 70.4688,248.153" HorizontalAlignment="Left" Height="80.999" Margin="34.99,80,0,0" Stretch="Fill" Stroke="White" UseLayoutRounding="False" VerticalAlignment="Top" Width="55.01" StrokeThickness="10" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
 		</Grid>
-		<TextBlock HorizontalAlignment="Left" Height="124" Margin="48,101,0,0" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="157" Foreground="White">
-			<Run Text="Tap Record-Tile"/>
-			<LineBreak/>
-			<Run Text="to start recording."/>
-		</TextBlock>
 		<!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
 
 		<!--ContentPanel - zusätzliche Inhalte hier platzieren-->

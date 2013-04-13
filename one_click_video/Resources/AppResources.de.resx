@@ -129,6 +129,9 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="PinTile" xml:space="preserve">
+    <value>Aufnahme-Kachel anpinnen</value>
+  </data>
   <data name="PlayButton" xml:space="preserve">
     <value>abspielen</value>
   </data>
