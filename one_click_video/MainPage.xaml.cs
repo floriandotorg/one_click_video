@@ -56,7 +56,7 @@ namespace one_click_video
         private System.Windows.Threading.DispatcherTimer _dt = new System.Windows.Threading.DispatcherTimer();
         private ApplicationBar _applicationBar;
         private ApplicationBar _choosingApplicationBar;
-        private bool _choosing = false;
+        private bool _choosing = false, _tilePageShown = false;
 
         // Konstruktor
         public MainPage()
@@ -78,13 +78,12 @@ namespace one_click_video
 
             ShellTile SecondaryTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("RecordingPage"));
 
-            if (SecondaryTile == null)
+            createThumbnails();
+
+            if (!_tilePageShown && SecondaryTile == null)
             {
+                _tilePageShown = true;
                 _dt.Start();
-            }
-            else
-            {
-                createThumbnails();
             }
         }
 
