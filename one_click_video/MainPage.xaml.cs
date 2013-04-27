@@ -19,6 +19,7 @@ using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using System.Windows.Resources;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Devices;
 using utility;
 
 namespace one_click_video
@@ -33,6 +34,7 @@ namespace one_click_video
         private bool first = true;
         private bool app_quit = true;
         private Microphone _mic; //marketplace capabilities detector
+        private PhotoCamera _photo_camera; //marketplace capabilities detector
 
         // Konstruktor
         public MainPage()
