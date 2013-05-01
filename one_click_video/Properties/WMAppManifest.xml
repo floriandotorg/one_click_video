@@ -8,14 +8,9 @@
   <App xmlns="" ProductID="{b6342709-9d4b-4186-ad3c-b828823ce0f8}" Title="1-Click Video" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Floyd UG (haftungsbeschränkt)" Description="Sample description" Publisher="Floyd UG (haftungsbeschränkt)" PublisherID="{5e6900f6-147b-4f26-a6c0-66538e360d85}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
-      <Capability Name="ID_CAP_NETWORKING" />
-      <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
-      <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
-      <Capability Name="ID_CAP_SENSORS" />
-      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
       <Capability Name="ID_CAP_ISV_CAMERA" />
       <Capability Name="ID_CAP_MICROPHONE" />
-      <Capability Name="ID_CAP_MEDIALIB_PHOTO" />
+      <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
