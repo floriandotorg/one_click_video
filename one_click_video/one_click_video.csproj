@@ -48,73 +48,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GalaSoft.MvvmLight.Extras.WP71">
-      <HintPath>..\packages\MvvmLightLibs.3.0.3\lib\sl4-windowsphone71\GalaSoft.MvvmLight.Extras.WP71.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.WP71">
-      <HintPath>..\packages\MvvmLightLibs.3.0.3\lib\sl4-windowsphone71\GalaSoft.MvvmLight.WP71.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Phone" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit">
-      <HintPath>..\packages\SilverlightToolkitWP.4.2011.12.14\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SilverlightSerializer.WP71">
-      <HintPath>..\packages\WP7Contrib.Caching.1.0.0.16\lib\sl4-WindowsPhone71\SilverlightSerializer.WP71.dll</HintPath>
-    </Reference>
     <Reference Include="System.Observable" />
-    <Reference Include="System.Reactive">
-      <HintPath>..\packages\Rx-Main.1.0.11226\lib\SL3-WP\System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Windows.Threading">
-      <HintPath>..\packages\Rx-Xaml.1.0.10621\lib\SL3-WP\System.Reactive.Windows.Threading.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.3.0.3\lib\sl4-windowsphone71\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
-    <Reference Include="WP7Contrib.Caching">
-      <HintPath>..\packages\WP7Contrib.Caching.1.0.0.16\lib\sl4-WindowsPhone71\WP7Contrib.Caching.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.Collections">
-      <HintPath>..\packages\WP7Contrib.Core.1.0.0.16\lib\sl4-wp71\WP7Contrib.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.Common">
-      <HintPath>..\packages\WP7Contrib.Core.1.0.0.16\lib\sl4-wp71\WP7Contrib.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.Communications">
-      <HintPath>..\packages\WP7Contrib.Net.1.0.0.16\lib\sl4-wp71\WP7Contrib.Communications.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.Diagnostics">
-      <HintPath>..\packages\WP7Contrib.Core.1.0.0.16\lib\sl4-wp71\WP7Contrib.Diagnostics.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.Logging">
-      <HintPath>..\packages\WP7Contrib.Core.1.0.0.16\lib\sl4-wp71\WP7Contrib.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.Messaging">
-      <HintPath>..\packages\WP7Contrib.Messaging.1.0.0.16\lib\sl4-wp71\WP7Contrib.Messaging.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.Serialization.Helpers">
-      <HintPath>..\packages\WP7Contrib.Services.1.0.0.16\lib\sl4-wp71\WP7Contrib.Serialization.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.Services">
-      <HintPath>..\packages\WP7Contrib.Services.1.0.0.16\lib\sl4-wp71\WP7Contrib.Services.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.View.Controls">
-      <HintPath>..\packages\WP7Contrib.Controls.1.0.0.16\lib\sl4-wp71\WP7Contrib.View.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7Contrib.View.Transitions">
-      <HintPath>..\packages\WP7Contrib.Controls.1.0.0.16\lib\sl4-wp71\WP7Contrib.View.Transitions.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -139,6 +81,69 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VideoCamera.cs" />
     <Compile Include="VideoCameraVisualizer.cs" />
+    <Compile Include="WP7Contrib\Animation\AnimatedBasePage.cs" />
+    <Compile Include="WP7Contrib\Animation\AnimatorHelperBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\ContinuumAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\ContinuumBackwardInAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\ContinuumBackwardOutAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\ContinuumForwardInAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\ContinuumForwardOutAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\SlideAnimator.cs" />
+    <Compile Include="WP7Contrib\Animation\SlideDownAnimator.cs" />
+    <Compile Include="WP7Contrib\Animation\SlideUpAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\Storyboards.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileBackwardInAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileBackwardOutAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileFeatherAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileFeatherBackwardInAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileFeatherBackwardOutAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileFeatherForwardInAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileFeatherForwardOutAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileForwardInAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Animation\TurnstileForwardOutAnimator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Extensions\ISupportOffsetChanges.cs" />
+    <Compile Include="WP7Contrib\Extensions\TransformCreationMode.cs" />
+    <Compile Include="WP7Contrib\Extensions\VisualTreeExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WP7Contrib\Helpers\ItemsControlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -159,7 +164,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
@@ -174,10 +178,6 @@
     <Content Include="floyd_light.png" />
     <Content Include="info.png" />
     <Content Include="SplashScreenImage.jpg" />
-    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppResources.de-DE.resx" />
@@ -186,6 +186,7 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,7 +19,6 @@ using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using System.Windows.Resources;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Devices;
 using utility;
 
 namespace one_click_video
