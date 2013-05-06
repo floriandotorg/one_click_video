@@ -149,6 +149,8 @@ namespace one_click_video
 
         private void ShutterPressed(object sender, object e)
         {
+            _videoCamera.ShutterPressed -= ShutterPressed;
+
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 this.progbar.IsIndeterminate = true;
