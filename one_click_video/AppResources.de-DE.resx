@@ -126,6 +126,9 @@
   <data name="contact_support" xml:space="preserve">
     <value>support</value>
   </data>
+  <data name="PlayButton" xml:space="preserve">
+    <value>abspielen</value>
+  </data>
   <data name="rate_and_review" xml:space="preserve">
     <value>bewerten</value>
   </data>
@@ -138,6 +141,13 @@ Gefällt Ihnen unsere App?</value>
   </data>
   <data name="support" xml:space="preserve">
     <value>Sie haben eine Frage, eine Anregung, oder möchten uns Ihre Meinung mitteilen?</value>
+  </data>
+  <data name="TrialText" xml:space="preserve">
+    <value>Videolänge beschränkt auf
+10 Sekunden</value>
+  </data>
+  <data name="TrialVersion" xml:space="preserve">
+    <value>Test-Version</value>
   </data>
   <data name="version" xml:space="preserve">
     <value>Version</value>

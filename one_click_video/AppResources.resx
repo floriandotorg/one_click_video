@@ -142,4 +142,14 @@ Contact us, we'd love to get your feedback.</value>
   <data name="saving" xml:space="preserve">
     <value>saving to camera roll</value>
   </data>
+  <data name="PlayButton" xml:space="preserve">
+    <value>play</value>
+  </data>
+  <data name="TrialText" xml:space="preserve">
+    <value>Video length limited to 
+10 seconds</value>
+  </data>
+  <data name="TrialVersion" xml:space="preserve">
+    <value>Trial Version</value>
+  </data>
 </root>

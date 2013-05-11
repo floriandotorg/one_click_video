@@ -19,6 +19,7 @@ using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using System.Windows.Resources;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Phone.Marketplace;
 using utility;
 
 namespace one_click_video
@@ -32,6 +33,7 @@ namespace one_click_video
         private DateTime _recStartTime;
         private bool first = true;
         private bool app_quit = true;
+        private bool _trial = new LicenseInformation().IsTrial();
         private Microphone _mic; //marketplace capabilities detector
         private PhotoCamera _photo_camera; //marketplace capabilities detector
 
@@ -70,8 +72,16 @@ namespace one_click_video
             _videoCameraVisualizer.SetSource(_videoCamera);
         }
 
+        private void trailPlayClicked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            app_quit = false;
+            NavigationService.Navigate(new Uri("/PlayPage.xaml", UriKind.Relative));
+        }
+
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            this.trial.Visibility = Visibility.Collapsed;
+            this.playButton.IsEnabled = false;
             this.RecTimer.Text = "--:--";
             this.RecIconStarting.Visibility = Visibility.Visible;
             this.prog.Visibility = Visibility.Collapsed;
@@ -141,10 +151,39 @@ namespace one_click_video
                 }));
         }
 
+        private void VideoCamera_ThumbnailSavedToDisk_Trial(object sender, ContentReadyEventArgs e)
+        {
+            string path = System.IO.Path.GetFileNameWithoutExtension(e.RelativePath);
+            path = path.Remove(path.Length - 3, 3) + ".mp4";
+
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                storage.CopyFile(path, "lastVideo.mp4", true);
+            }
+
+            _videoCamera.AddMediaToCameraRoll(path, e.RelativePath);
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.playButton.IsEnabled = true;
+            }));
+        }
+
         void dt_Tick(object sender, EventArgs e)
         {
             TimeSpan duration = DateTime.Now - _recStartTime + TimeSpan.FromSeconds(1);
             this.RecTimer.Text = duration.ToString(@"mm\:ss");
+
+            if (_trial && duration.TotalSeconds >= 10)
+            {
+                _dt.Stop();
+                _videoCamera.ShutterPressed -= ShutterPressed;
+                this.timerButton.Tap -= ShutterPressed;
+
+                _videoCamera.ThumbnailSavedToDisk += VideoCamera_ThumbnailSavedToDisk_Trial;
+                _videoCamera.StopRecording();
+                this.trialFadeIn.Begin();
+            }
         }
 
         private void ShutterPressed(object sender, object e)
